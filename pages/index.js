@@ -21,7 +21,7 @@ export default function Index() {
     <p>
       
       <Link href="/about">
-        <a>About Us</a>
+        <a>About</a>
       </Link> <br/>
 
       <Link href="/home">

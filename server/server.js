@@ -2,10 +2,11 @@ import "@babel/polyfill";
 import dotenv from "dotenv";
 import "isomorphic-fetch";
 import createShopifyAuth, { verifyRequest } from "@shopify/koa-shopify-auth";
-import Shopify, { ApiVersion } from "@shopify/shopify-api";
+import Shopify, { ApiVersion, DataType } from "@shopify/shopify-api";
 import Koa from "koa";
 import next from "next";
 import Router from "koa-router";
+import { createLexer } from "graphql";
 
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 8081;
@@ -33,6 +34,12 @@ const ACTIVE_SHOPIFY_SHOPS = {};
 app.prepare().then(async () => {
   const server = new Koa();
   const router = new Router();
+
+  // router.get("/script", async (ctx) => {
+  //   ctx.type = 'application/javascript; charset=utf-8';
+  //   ctx.body = 'check response';
+  // })
+
   server.keys = [Shopify.Context.API_SECRET_KEY];
   server.use(
     createShopifyAuth({
@@ -56,6 +63,30 @@ app.prepare().then(async () => {
             `Failed to register APP_UNINSTALLED webhook: ${response.result}`
           );
         }
+
+        // Script Tag Write
+        // const client = new Shopify.Clients.Rest(shop, accessToken);
+        // const data = await client.get({
+        //   path: 'script_tags/596726825',
+        // });
+
+        
+        // retrive all script tag
+        const client = new Shopify.Clients.Rest(shop, accessToken);
+        const dataScriptTags = await client.get({
+          path: 'script_tags'
+        });
+        console.log('dataScriptTags', dataScriptTags);
+        if (dataScriptTags.body.script_tags.length === 0) {
+
+          const createScript = await client.post({
+            path: 'script_tags',
+            data: {"script_tag":{"event":"onload","src":`${process.env.HOST}/script.js`}},
+            type: DataType.JSON,
+          });
+        }
+
+
 
         // Redirect to app with shop parameter upon auth
         ctx.redirect(`/?shop=${shop}&host=${host}`);
@@ -99,6 +130,8 @@ app.prepare().then(async () => {
       await handleRequest(ctx);
     }
   });
+
+
 
 
   server.use(router.allowedMethods());
