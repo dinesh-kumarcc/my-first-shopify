@@ -1,340 +1,293 @@
-import React, { useState, useCallback,useRef } from 'react';
-import {TextContainer,SkeletonDisplayText,SkeletonBodyText, Toast, Page, ContextualSaveBar, TopBar, Navigation, Layout, Card, FormLayout, TextField, SkeletonPage, Modal, AppProvider, ActionList,Frame } from "@shopify/polaris";
+import React, { useState, useCallback, useRef } from 'react';
+import {
+  TextContainer, SkeletonDisplayText, SkeletonBodyText, Toast, Page, ContextualSaveBar, TopBar, ColorPicker, Layout,
+  Card, FormLayout, TextField, SkeletonPage, AppProvider, Popover, Frame,
+  hsbToRgb,
+  rgbToHsb,
+  rgbString,
+  Button,
+  Stack
+} from "@shopify/polaris";
+import ColorPickerComp from './ColorPickerComp';
 
 export default function FrameComp() {
-    const defaultState = useRef({
-      emailFieldValue: 'dharma@jadedpixel.com',
-      nameFieldValue: 'Jaded Pixel',
+  const defaultState = useRef({
+    nameFieldValue: 'Jaded Pixel',
+  });
+
+  const [color, setColor] = useState({
+    hue: 300,
+    brightness: 1,
+    saturation: 0.7,
+    alpha: 0.8
+  });
+
+  const [bgcolor, setBgColor] = useState({
+    hue: 300,
+    brightness: 1,
+    saturation: 0.7,
+    alpha: 0.8
+  });
+
+
+
+  const [popoverActive, setPopoverActive] = useState(false)
+  const [popoverBgActive, setBgPopoverActive] = useState(false)
+
+  const [toastActive, setToastActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
+  const [nameFieldValue, setNameFieldValue] = useState(
+    defaultState.current.nameFieldValue,
+  );
+  const [storeName, setStoreName] = useState(
+    defaultState.current.nameFieldValue,
+  );
+
+  // Text Color Change
+
+  const handleColorChange = useCallback((color) => {
+    setColor( color )
+  }, []);
+  
+    const handleRgbChange = (value) => {
+      const rgbValues = value.replace(/[^\d*.?\d*,]/g, "").split(",");
+      const color = rgbToHsb({
+        red: rgbValues[0],
+        green: rgbValues[1],
+        blue: rgbValues[2],
+        alpha: rgbValues[3]
+      });
+      setColor({ color })
+    }
+    const handlePopoverClose = () => {
+      setPopoverActive(false)
+    }
+  
+    const handlePopoverOpen = () => {
+      setPopoverActive(true)
+    }
+
+    const rgbaColor = rgbString(hsbToRgb(color));
+
+    const activator = (
+      <Button onClick={handlePopoverOpen}>
+        <Stack alignment="center" spacing="tight">
+          <div
+            style={{
+              height: "2rem",
+              width: "2rem",
+              borderRadius: "0.3rem",
+              background: rgbaColor
+            }}
+          />
+          <span>Text color</span>
+        </Stack>
+      </Button>
+    );
+  
+
+  // Backgroung color Change
+
+  const handleBgColorChange = useCallback((color) => {
+    setBgColor( color )
+  }, []);
+
+  const handleRgbBgChange = (value) => {
+    const rgbValues = value.replace(/[^\d*.?\d*,]/g, "").split(",");
+    const color = rgbToHsb({
+      red: rgbValues[0],
+      green: rgbValues[1],
+      blue: rgbValues[2],
+      alpha: rgbValues[3]
     });
-    const skipToContentRef = useRef(null);
-  
-    const [toastActive, setToastActive] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isDirty, setIsDirty] = useState(false);
-    const [searchActive, setSearchActive] = useState(false);
-    const [searchValue, setSearchValue] = useState('');
-    const [userMenuActive, setUserMenuActive] = useState(false);
-    const [mobileNavigationActive, setMobileNavigationActive] = useState(false);
-    const [modalActive, setModalActive] = useState(false);
-    const [nameFieldValue, setNameFieldValue] = useState(
-      defaultState.current.nameFieldValue,
-    );
-    const [emailFieldValue, setEmailFieldValue] = useState(
-      defaultState.current.emailFieldValue,
-    );
-    const [storeName, setStoreName] = useState(
-      defaultState.current.nameFieldValue,
-    );
-    const [supportSubject, setSupportSubject] = useState('');
-    const [supportMessage, setSupportMessage] = useState('');
-  
-    const handleSubjectChange = useCallback(
-      (value) => setSupportSubject(value),
-      [],
-    );
-    const handleMessageChange = useCallback(
-      (value) => setSupportMessage(value),
-      [],
-    );
-    const handleDiscard = useCallback(() => {
-      setEmailFieldValue(defaultState.current.emailFieldValue);
-      setNameFieldValue(defaultState.current.nameFieldValue);
-      setIsDirty(false);
-    }, []);
-    const handleSave = useCallback(() => {
-      defaultState.current.nameFieldValue = nameFieldValue;
-      defaultState.current.emailFieldValue = emailFieldValue;
-  
-      setIsDirty(false);
-      setToastActive(true);
-      setStoreName(defaultState.current.nameFieldValue);
-    }, [emailFieldValue, nameFieldValue]);
-    const handleNameFieldChange = useCallback((value) => {
-      setNameFieldValue(value);
-      value && setIsDirty(true);
-    }, []);
-    const handleEmailFieldChange = useCallback((value) => {
-      setEmailFieldValue(value);
-      value && setIsDirty(true);
-    }, []);
-    const handleSearchResultsDismiss = useCallback(() => {
-      setSearchActive(false);
-      setSearchValue('');
-    }, []);
-    const handleSearchFieldChange = useCallback((value) => {
-      setSearchValue(value);
-      setSearchActive(value.length > 0);
-    }, []);
-    const toggleToastActive = useCallback(
-      () => setToastActive((toastActive) => !toastActive),
-      [],
-    );
-    const toggleUserMenuActive = useCallback(
-      () => setUserMenuActive((userMenuActive) => !userMenuActive),
-      [],
-    );
-    const toggleMobileNavigationActive = useCallback(
-      () =>
-        setMobileNavigationActive(
-          (mobileNavigationActive) => !mobileNavigationActive,
-        ),
-      [],
-    );
-    const toggleIsLoading = useCallback(
-      () => setIsLoading((isLoading) => !isLoading),
-      [],
-    );
-    const toggleModalActive = useCallback(
-      () => setModalActive((modalActive) => !modalActive),
-      [],
-    );
-  
-    const toastMarkup = toastActive ? (
-      <Toast onDismiss={toggleToastActive} content="Changes saved" />
-    ) : null;
-  
-    const userMenuActions = [
-      {
-        items: [{content: 'Community forums'}],
-      },
-    ];
-  
-    const contextualSaveBarMarkup = isDirty ? (
-      <ContextualSaveBar
-        message="Unsaved changes"
-        saveAction={{
-          onAction: handleSave,
-        }}
-        discardAction={{
-          onAction: handleDiscard,
-        }}
-      />
-    ) : null;
-  
-    const userMenuMarkup = (
-      <TopBar.UserMenu
-        actions={userMenuActions}
-        name="Dharma"
-        detail={storeName}
-        initials="D"
-        open={userMenuActive}
-        onToggle={toggleUserMenuActive}
-      />
-    );
-  
-    const searchResultsMarkup = (
-      <ActionList
-        items={[{content: 'Shopify help center'}, {content: 'Community forums'}]}
-      />
-    );
-  
-    const searchFieldMarkup = (
-      <TopBar.SearchField
-        onChange={handleSearchFieldChange}
-        value={searchValue}
-        placeholder="Search"
-      />
-    );
-  
-    const topBarMarkup = (
-      <TopBar
-        showNavigationToggle
-        userMenu={userMenuMarkup}
-        searchResultsVisible={searchActive}
-        searchField={searchFieldMarkup}
-        searchResults={searchResultsMarkup}
-        onSearchResultsDismiss={handleSearchResultsDismiss}
-        onNavigationToggle={toggleMobileNavigationActive}
-      />
-    );
-  
-    const navigationMarkup = (
-      <Navigation location="/">
-        <Navigation.Section
-          items={[
-            {
-              label: 'Back to Shopify',
-              // icon: ArrowLeftMinor,
-            },
-          ]}
-        />
-        <Navigation.Section
-          separator
-          title="Jaded Pixel App"
-          items={[
-            {
-              label: 'Dashboard',
-              // icon: HomeMajor,
-              onClick: toggleIsLoading,
-            },
-            {
-              label: 'Jaded Pixel Orders',
-              // icon: OrdersMajor,
-              onClick: toggleIsLoading,
-            },
-          ]}
-          action={{
-            // icon: ConversationMinor,
-            accessibilityLabel: 'Contact support',
-            onClick: toggleModalActive,
+    setBgColor({ color })
+  }
+  const handleBgPopoverClose = () => {
+    setBgPopoverActive(false)
+  }
+
+  const handleBgPopoverOpen = () => {
+    setBgPopoverActive(true)
+  }
+
+
+  const rgbaBgColor = rgbString(hsbToRgb(bgcolor));
+
+  const bgactivator = (
+    <Button onClick={handleBgPopoverOpen}>
+      <Stack alignment="center" spacing="tight">
+        <div
+          style={{
+            height: "2rem",
+            width: "2rem",
+            borderRadius: "0.3rem",
+            background: rgbaBgColor
           }}
         />
-      </Navigation>
-    );
-  
-    const loadingMarkup = isLoading ? <Loading /> : null;
-  
-    const skipToContentTarget = (
-      <a id="SkipToContentTarget" ref={skipToContentRef} tabIndex={-1} />
-    );
-  
-    const actualPageMarkup = (
-      <Page title="Account">
-        <Layout>
-          {skipToContentTarget}
-          <Layout.AnnotatedSection
-            title="Account details"
-            description="Jaded Pixel will use this as your account information."
-          >
-            <Card sectioned>
-              <FormLayout>
-                <TextField
-                  label="Full name"
-                  value={nameFieldValue}
-                  onChange={handleNameFieldChange}
-                  autoComplete="name"
+        <span>Background color</span>
+      </Stack>
+    </Button>
+  );
+
+
+  const handleDiscard = useCallback(() => {
+    setNameFieldValue(defaultState.current.nameFieldValue);
+    setIsDirty(false);
+  }, []);
+
+  const handleSave = useCallback(() => {
+    defaultState.current.nameFieldValue = nameFieldValue;
+    setIsDirty(false);
+    setToastActive(true);
+    setStoreName(defaultState.current.nameFieldValue);
+  }, [nameFieldValue]);
+
+  const handleNameFieldChange = useCallback((value) => {
+    setNameFieldValue(value);
+    value && setIsDirty(true);
+  }, []);
+
+  const toggleToastActive = useCallback(
+    () => setToastActive((toastActive) => !toastActive),
+    [],
+  );
+
+  const toastMarkup = toastActive ? (
+    <Toast onDismiss={toggleToastActive} content="Changes saved" />
+  ) : null;
+
+  const contextualSaveBarMarkup = isDirty ? (
+    <ContextualSaveBar
+      message="Unsaved changes"
+      saveAction={{
+        onAction: handleSave,
+      }}
+      discardAction={{
+        onAction: handleDiscard,
+      }}
+    />
+  ) : null;
+
+
+  const topBarMarkup = (
+    <Page>
+      <TopBar
+        searchField={storeName}
+      />
+    </Page>
+  );
+
+//AnnotatedSection
+
+  const actualPageMarkup = (
+    <Page>
+      <Layout.Section>
+        {/* <Layout.AnnotatedSection> */}
+          <Card sectioned>
+            <FormLayout>
+              <TextField
+                label="Text here"
+                value={nameFieldValue}
+                onChange={handleNameFieldChange}
+                autoComplete="name"
+              />
+            </FormLayout>
+
+            <div style={{marginTop:15}}>
+            <Popover
+              active={popoverActive}
+              activator={activator}
+              onClose={handlePopoverClose}
+            >
+              <Popover.Section>
+                <ColorPicker
+                  onChange={handleColorChange}
+                  color={color}
+                  allowAlpha
                 />
-                <TextField
-                  type="email"
-                  label="Email"
-                  value={emailFieldValue}
-                  onChange={handleEmailFieldChange}
-                  autoComplete="email"
+              </Popover.Section>
+              <Popover.Section>
+                <TextField value={rgbaColor} onChange={handleRgbChange} />
+              </Popover.Section>
+            </Popover>
+            </div>
+
+            <div style={{marginTop:15}}>
+            <Popover
+              active={popoverBgActive}
+              activator={bgactivator}
+              onClose={handleBgPopoverClose}
+            >
+              <Popover.Section>
+                <ColorPicker
+                  onChange={handleBgColorChange}
+                  color={color}
+                  allowAlpha
                 />
-              </FormLayout>
-            </Card>
-          </Layout.AnnotatedSection>
-        </Layout>
-      </Page>
-    );
-  
-    const loadingPageMarkup = (
-      <SkeletonPage>
-        <Layout>
-          <Layout.Section>
-            <Card sectioned>
-              <TextContainer>
-                <SkeletonDisplayText size="small" />
-                <SkeletonBodyText lines={9} />
-              </TextContainer>
-            </Card>
-          </Layout.Section>
-        </Layout>
-      </SkeletonPage>
-    );
-  
-    const pageMarkup = isLoading ? loadingPageMarkup : actualPageMarkup;
-  
-    const modalMarkup = (
-      <Modal
-        open={modalActive}
-        onClose={toggleModalActive}
-        title="Contact support"
-        primaryAction={{
-          content: 'Send',
-          onAction: toggleModalActive,
+              </Popover.Section>
+              <Popover.Section>
+                <TextField value={rgbaBgColor} onChange={handleRgbBgChange} />
+              </Popover.Section>
+            </Popover>
+            </div>
+
+          </Card>
+        {/* </Layout.AnnotatedSection> */}
+      </Layout.Section>
+    </Page>
+    
+  );
+
+  const loadingPageMarkup = (
+    <SkeletonPage>
+      <Layout>
+        <Layout.Section>
+          <Card sectioned>
+            <TextContainer>
+              <SkeletonDisplayText size="small" />
+              <SkeletonBodyText lines={19} />
+            </TextContainer>
+          </Card>
+        </Layout.Section>
+      </Layout>
+    </SkeletonPage>
+  );
+
+
+
+  const pageMarkup = isLoading ? loadingPageMarkup : actualPageMarkup;
+
+  return (
+    <div style={{ height: '500px', margin: '-8px'  }}>
+      <AppProvider
+        i18n={{
+          Polaris: {
+            ContextualSaveBar: {
+              save: 'Save',
+              discard: 'Discard',
+            },
+            Modal: {
+              iFrameTitle: 'body markup',
+            },
+            Frame: {
+              skipToContent: 'Skip to content',
+              navigationLabel: 'Navigation',
+              Navigation: {
+                closeMobileNavigationLabel: 'Close navigation',
+              },
+            },
+          },
         }}
       >
-        <Modal.Section>
-          <FormLayout>
-            <TextField
-              label="Subject"
-              value={supportSubject}
-              onChange={handleSubjectChange}
-              autoComplete="off"
-            />
-            <TextField
-              label="Message"
-              value={supportMessage}
-              onChange={handleMessageChange}
-              autoComplete="off"
-              multiline
-            />
-          </FormLayout>
-        </Modal.Section>
-      </Modal>
-    );
-  
-    const theme = {
-      frameOffset: '60px',
-      logo: {
-        width: 124,
-        topBarSource:
-          'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999',
-        contextualSaveBarSource:
-          'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-gray.svg?6215648040070010999',
-        url: 'http://jadedpixel.com',
-        accessibilityLabel: 'Jaded Pixel',
-      },
-    };
-  
-    return (
-      <div style={{height: '500px', background: '#DE1373', margin: '-8px'}}>
-        <AppProvider
-          theme={theme}
-          i18n={{
-            Polaris: {
-              Avatar: {
-                label: 'Avatar',
-                labelWithInitials: 'Avatar with initials {initials}',
-              },
-              ContextualSaveBar: {
-                save: 'Save',
-                discard: 'Discard',
-              },
-              TextField: {
-                characterCount: '{count} characters',
-              },
-              TopBar: {
-                toggleMenuLabel: 'Toggle menu',
-  
-                SearchField: {
-                  clearButtonLabel: 'Clear',
-                  search: 'Search',
-                },
-              },
-              Modal: {
-                iFrameTitle: 'body markup',
-              },
-              Frame: {
-                skipToContent: 'Skip to content',
-                navigationLabel: 'Navigation',
-                Navigation: {
-                  closeMobileNavigationLabel: 'Close navigation',
-                },
-              },
-            },
-          }}
+        <Frame
+          topBar={topBarMarkup}
         >
-          <Frame
-            globalRibbon={
-              <div style={{background: '#C0FFEE', padding: '30px'}}>
-                Global ribbon
-              </div>
-            }
-            topBar={topBarMarkup}
-            navigation={navigationMarkup}
-            showMobileNavigation={mobileNavigationActive}
-            onNavigationDismiss={toggleMobileNavigationActive}
-            skipToContentTarget={skipToContentRef.current}
-          >
-            {contextualSaveBarMarkup}
-            {loadingMarkup}
-            {pageMarkup}
-            {toastMarkup}
-            {modalMarkup}
-          </Frame>
-        </AppProvider>
-      </div>
-    );
-  }
+          {contextualSaveBarMarkup}
+          {pageMarkup}
+          {toastMarkup}
+        </Frame>
+      </AppProvider>
+    </div>
+  );
+}

@@ -7,6 +7,8 @@ import Koa from "koa";
 import next from "next";
 import Router from "koa-router";
 import { createLexer } from "graphql";
+import { db } from '../firebase'
+import { query, getDocs, collection, orderBy, deleteField, updateDoc, onSnapshot, addDoc, deleteDoc, doc, Timestamp } from "firebase/firestore";
 
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 8081;
@@ -70,21 +72,140 @@ app.prepare().then(async () => {
         //   path: 'script_tags/596726825',
         // });
 
-        
+
         // retrive all script tag
         const client = new Shopify.Clients.Rest(shop, accessToken);
         const dataScriptTags = await client.get({
           path: 'script_tags'
         });
+
         console.log('dataScriptTags', dataScriptTags);
         if (dataScriptTags.body.script_tags.length === 0) {
 
           const createScript = await client.post({
             path: 'script_tags',
-            data: {"script_tag":{"event":"onload","src":`${process.env.HOST}/script.js`}},
+            data: { "script_tag": { "event": "onload", "src": `${process.env.HOST}/script.js` } },
             type: DataType.JSON,
           });
         }
+
+
+        // const docRef = doc(db, "shop");
+        // const docSnap = await getDoc(docRef);
+        // console.log(docSnap,'----------');
+
+        // const noteCol = query(collection(db, "shop"));
+        // const noteSnapshot = await getDocs(noteCol);
+        // console.log('noteSnapshot', noteSnapshot);
+
+        // const shopCol = db.collection("shop");
+        // const shopSnapshot = await getDocs(noteCol);
+        // console.log(shopSnapshot,'shopsnapshot')
+        // if (shopSnapshot.length == 0) {
+        //   const addDataScript = addDoc(collection(db, "shop"), {
+        //     shop: shop,
+        //     accessToken: accessToken,
+        //     dateExample: Timestamp.fromDate(new Date("December 7, 2021"))
+        //   })
+        // }
+
+        // else{
+        //       const shopRef = doc(db, "shop",);
+        //   updateDoc(shopRef, {
+        //     accessToken: accessToken,
+        //     dateExample: Timestamp.fromDate(new Date("December 7, 2021"))
+        //   });
+        // }
+
+
+
+        // const noteCol = query(collection(db, "note"), orderBy("name", "asc"));
+        // const noteSnapshot = await getDocs(noteCol);
+
+        const noteCol = query(collection(db, "shop"));
+        const noteSnapshot = await getDocs(noteCol);
+        console.log('noteSnapshot', noteSnapshot);
+        // if(noteSnapshot){
+        //   console.log("Document");
+        // }else{
+        //   console.log("no doc")
+        // }
+        const shop = [];
+        noteSnapshot.forEach((doc) => {
+
+          // doc.data() is never undefined for query doc snapshots 
+          console.log(doc.id, " => ", doc.data());
+          shop.push({
+            ...doc.data(),
+            id: doc.id
+          })
+
+        });
+
+        if (!shop) {
+          const addDataScript = addDoc(collection(db, "shop"), {
+            shop: shop,
+            accessToken: accessToken,
+            dateExample: Timestamp.fromDate(new Date("December 7, 2021"))
+          })
+        }
+
+
+        // const docRef = doc(db, "shop");
+        // const docSnap = await getDoc(docRef);
+
+        // if (docSnap.exists()) {
+        //   console.log("Document data:", docSnap.data());
+        // } else {
+        //   // doc.data() will be undefined in this case
+        //   console.log("No such document!");
+        // }
+
+        // if (shop && accessToken) {
+        //   const noteRef = doc(db, "shop");
+        //   // console.log(noteRef,'noteref')
+        //   updateDoc(noteRef, {
+        //     shop: shop,
+        //     accessToken: accessToken,
+        //     dateExample: Timestamp.fromDate(new Date("December 7, 2021"))
+        //   });
+        // } else {
+        //   const addDataScript = addDoc(collection(db, "shop"), {
+        //     shop: shop,
+        //     accessToken: accessToken,
+        //     dateExample: Timestamp.fromDate(new Date("December 7, 2021"))
+        //   })
+        // }
+
+        //   updateField = () => {
+        //     // console.log('hhhh'+this.state.id)
+        //     const noteRef = doc(db, "note", this.state.id);
+        //     // console.log(noteRef,'noteref')
+        //     updateDoc(noteRef, {
+        //         name: this.state.updateNote
+        //     });
+        //     this.getData();
+        //     this.setState({ show: false });
+        // };
+
+
+        //  const addNote = e => {
+        //       e.preventDefault();
+        //       try {
+        //           console.log('db', db);
+        //           const docRef = addDoc(collection(db, "note"), {
+        //               name: this.state.note,
+        //               dateExample: Timestamp.fromDate(new Date("December 10, 1815"))
+        //           });
+        //           this.setState({ note: '' })
+        //           // console.log(this.state.note, "Document written with ID: ", docRef.id);
+        //           this.getData();
+
+        //       } catch (e) {
+        //           alert(e, 'error')
+        //       }
+        //   }
+
 
 
 

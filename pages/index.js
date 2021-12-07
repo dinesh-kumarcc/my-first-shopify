@@ -4,8 +4,8 @@ import Link from 'next/link'
 import LayoutCompo from '../components/LayoutCompo';
 import MediaCompo from '../components/MediaCompo';
 import PageCompo from '../components/PageCompo';
-import ColorPickerCompo from '../components/ColorPickerCompo';
 import DatePickerExample from '../components/DatePickerCompo';
+import FrameComp from '../components/FrameComp'
 
 export default function Index() {
   const [connected, setConnected] = useState(false);
@@ -39,10 +39,7 @@ export default function Index() {
       {/* <div>
             <Link to="/about">About </Link>
           </div> */}
-
-
-      <Heading>AccountConnection Component</Heading>
-      <AccountConnection
+      {/* <AccountConnection
         accountName={accountName}
         connected={connected}
         title="Example App"
@@ -52,17 +49,11 @@ export default function Index() {
         }}
         details={details}
         termsOfService={terms}
-      />
+      /> */}
 
-      {/* <FrameComp/> */}
+      <FrameComp/>
 
-      <LayoutCompo/>
-
-      <MediaCompo/>
-
-      <PageCompo/>
-
-      {/* <TopThemeCompo/> */}
+    
 
       
 
