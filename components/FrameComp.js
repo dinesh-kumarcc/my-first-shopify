@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import {
   TextContainer, SkeletonDisplayText, SkeletonBodyText, Toast, Page, ContextualSaveBar, TopBar, ColorPicker, Layout,
   Card, FormLayout, TextField, SkeletonPage, AppProvider, Popover, Frame,
@@ -9,11 +9,82 @@ import {
   Stack
 } from "@shopify/polaris";
 import ColorPickerComp from './ColorPickerComp';
+import { query, getDocs, collection, setDoc, deleteField, updateDoc, onSnapshot, addDoc, deleteDoc, doc, Timestamp } from "firebase/firestore";
+import { auth, db } from '../firebase'
 
 export default function FrameComp() {
+
+  const [id,setId] = useState('');
+
   const defaultState = useRef({
     nameFieldValue: 'Jaded Pixel',
   });
+
+  useEffect( () => {
+
+    subColl();
+
+  //   const shopCol = query(collection(db, "shop"));
+  //   const shopSnapshot = await getDocs(shopCol);
+  //   const shopdata = [];
+
+  //   shopSnapshot.forEach((doc) => {
+  //     setId(doc.id)
+  //     // console.log(doc.id, " => ", doc.data());
+  //     shopdata.push({
+  //       ...doc.data(),
+  //       id: doc.id
+  //     })
+  //   });
+
+  //   await addDoc(collection(db, 'shop', id, 'notes'), {
+  //     color: color,
+  // });
+
+
+}, [])
+
+    // const subColRef = collection(db, "shop",id,"notifications");
+    // console.log(subColRef, '///////////////////')
+
+
+
+    // odd number of path segments to get a CollectionReference
+
+    // equivalent to:
+    // .collection("collection_name/doc_name/subcollection_name") in v8
+
+    // use getDocs() instead of getDoc() to fetch the collection
+
+    // const qSnap = getDocs(subColRef)
+    // console.log(qSnap.docs.map(d => ({id: d.id, ...d.data()})))
+
+
+    // console.log('db', db);
+    // const addSubCollection = addDoc(collection(db,shopSnapshot,"notification"),{
+    //   color:color
+    // })
+
+    // const addDataScript = addDoc(collection(db, "shop"), {
+    //   shop: shop,
+    //   accessToken: accessToken,
+    //   dateExample: Timestamp.fromDate(new Date("December 7, 2021"))
+    // })
+
+    //   setDoc(doc(db, "shop", `notification`, `${shopdata[0].id}`), {
+    //     Name: "CAted college"
+    // })
+
+    // const usersCollectionRef = collection(db, 'shop');
+    // console.log(usersCollectionRef,'userscollection]}}}}}}}}}}}}}}}}}}')
+
+
+    // const docRef = addDoc(collection(db, "shop"+shopdata[0].id+ "notification"), {
+    //   dateExample: Timestamp.fromDate(new Date("December 10, 1815")),
+    //   color: color
+    // });
+
+
 
   const [color, setColor] = useState({
     hue: 300,
@@ -29,7 +100,27 @@ export default function FrameComp() {
     alpha: 0.8
   });
 
+  const subColl = async () => {
 
+    const shopCol = query(collection(db, "shop"));
+    const shopSnapshot = await getDocs(shopCol);
+    const shopdata = [];
+
+    shopSnapshot.forEach((doc) => {
+      setId(doc.id)
+      // console.log(doc.id, " => ", doc.data());
+      shopdata.push({
+        ...doc.data(),
+        id: doc.id
+      })
+    });
+
+    await addDoc(collection(db, 'shop',id,'notifications'), {
+      color: color,
+      bgcolor:bgcolor
+    });
+
+  }
 
   const [popoverActive, setPopoverActive] = useState(false)
   const [popoverBgActive, setBgPopoverActive] = useState(false)
@@ -47,50 +138,50 @@ export default function FrameComp() {
   // Text Color Change
 
   const handleColorChange = useCallback((color) => {
-    setColor( color )
+    setColor(color)
   }, []);
-  
-    const handleRgbChange = (value) => {
-      const rgbValues = value.replace(/[^\d*.?\d*,]/g, "").split(",");
-      const color = rgbToHsb({
-        red: rgbValues[0],
-        green: rgbValues[1],
-        blue: rgbValues[2],
-        alpha: rgbValues[3]
-      });
-      setColor({ color })
-    }
-    const handlePopoverClose = () => {
-      setPopoverActive(false)
-    }
-  
-    const handlePopoverOpen = () => {
-      setPopoverActive(true)
-    }
 
-    const rgbaColor = rgbString(hsbToRgb(color));
+  const handleRgbChange = (value) => {
+    const rgbValues = value.replace(/[^\d*.?\d*,]/g, "").split(",");
+    const color = rgbToHsb({
+      red: rgbValues[0],
+      green: rgbValues[1],
+      blue: rgbValues[2],
+      alpha: rgbValues[3]
+    });
+    setColor({ color })
+  }
+  const handlePopoverClose = () => {
+    setPopoverActive(false)
+  }
 
-    const activator = (
-      <Button onClick={handlePopoverOpen}>
-        <Stack alignment="center" spacing="tight">
-          <div
-            style={{
-              height: "2rem",
-              width: "2rem",
-              borderRadius: "0.3rem",
-              background: rgbaColor
-            }}
-          />
-          <span>Text color</span>
-        </Stack>
-      </Button>
-    );
-  
+  const handlePopoverOpen = () => {
+    setPopoverActive(true)
+  }
+
+  const rgbaColor = rgbString(hsbToRgb(color));
+
+  const activator = (
+    <Button onClick={handlePopoverOpen}>
+      <Stack alignment="center" spacing="tight">
+        <div
+          style={{
+            height: "2rem",
+            width: "2rem",
+            borderRadius: "0.3rem",
+            background: rgbaColor
+          }}
+        />
+        <span>Text color</span>
+      </Stack>
+    </Button>
+  );
+
 
   // Backgroung color Change
 
   const handleBgColorChange = useCallback((color) => {
-    setBgColor( color )
+    setBgColor(color)
   }, []);
 
   const handleRgbBgChange = (value) => {
@@ -124,11 +215,28 @@ export default function FrameComp() {
             borderRadius: "0.3rem",
             background: rgbaBgColor
           }}
-        />
+        />addNotification
         <span>Background color</span>
       </Stack>
     </Button>
   );
+
+
+  //   addNotification = () => {
+  //     try {
+  //         console.log('db', db);
+  //         const docRef = addDoc(collection(db, "shop","notification"), {
+  //             dateExample: Timestamp.fromDate(new Date("December 10, 1815")),
+  //             color:color
+  //         });
+
+  //     } catch (e) {
+  //         alert(e, 'error')
+  //     }
+  // }
+
+
+
 
 
   const handleDiscard = useCallback(() => {
@@ -178,23 +286,23 @@ export default function FrameComp() {
     </Page>
   );
 
-//AnnotatedSection
+  //AnnotatedSection
 
   const actualPageMarkup = (
     <Page>
       <Layout.Section>
         {/* <Layout.AnnotatedSection> */}
-          <Card sectioned>
-            <FormLayout>
-              <TextField
-                label="Text here"
-                value={nameFieldValue}
-                onChange={handleNameFieldChange}
-                autoComplete="name"
-              />
-            </FormLayout>
+        <Card sectioned>
+          <FormLayout>
+            <TextField
+              label="Text here"
+              value={nameFieldValue}
+              onChange={handleNameFieldChange}
+              autoComplete="name"
+            />
+          </FormLayout>
 
-            <div style={{marginTop:15}}>
+          <div style={{ marginTop: 15 }}>
             <Popover
               active={popoverActive}
               activator={activator}
@@ -211,9 +319,9 @@ export default function FrameComp() {
                 <TextField value={rgbaColor} onChange={handleRgbChange} />
               </Popover.Section>
             </Popover>
-            </div>
+          </div>
 
-            <div style={{marginTop:15}}>
+          <div style={{ marginTop: 15 }}>
             <Popover
               active={popoverBgActive}
               activator={bgactivator}
@@ -230,13 +338,13 @@ export default function FrameComp() {
                 <TextField value={rgbaBgColor} onChange={handleRgbBgChange} />
               </Popover.Section>
             </Popover>
-            </div>
+          </div>
 
-          </Card>
+        </Card>
         {/* </Layout.AnnotatedSection> */}
       </Layout.Section>
     </Page>
-    
+
   );
 
   const loadingPageMarkup = (
@@ -259,7 +367,7 @@ export default function FrameComp() {
   const pageMarkup = isLoading ? loadingPageMarkup : actualPageMarkup;
 
   return (
-    <div style={{ height: '500px', margin: '-8px'  }}>
+    <div style={{ height: '500px', margin: '-8px' }}>
       <AppProvider
         i18n={{
           Polaris: {
