@@ -54,7 +54,9 @@ function MyProvider(props) {
 
 class MyApp extends App {
   render() {
-    const { Component, pageProps, host } = this.props;
+    console.log('this.props', this.props);
+    const { Component, pageProps, host, router } = this.props;
+    const {shop} = router.query;
     return (
       <AppProvider i18n={translations}>
         <Provider
@@ -68,7 +70,7 @@ class MyApp extends App {
           <RoutePropagator />
 
 
-          <MyProvider Component={Component} {...pageProps} />
+          <MyProvider Component={Component} shop={shop} {...pageProps} />
         </Provider>
       </AppProvider>
     );

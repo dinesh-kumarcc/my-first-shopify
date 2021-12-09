@@ -28,3 +28,96 @@ This repository is used by [Shopify CLI](https://github.com/Shopify/shopify-cli)
 ## License
 
 This respository is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+
+<!-- 
+
+rgbaColor
+rgbaBgColor
+
+    await addDoc(collection(db, 'shop', id , 'notifications'), {
+      color: color,
+      bgcolor:bgcolor,
+      text:nameFieldValue,
+      dateExample: Timestamp.fromDate(new Date())
+    });
+
+ const subColRef = collection(db, "shop",id,"notifications");
+    console.log(subColRef, '///////////////////')
+
+
+
+    odd number of path segments to get a CollectionReference
+
+    equivalent to:
+    .collection("collection_name/doc_name/subcollection_name") in v8
+
+    use getDocs() instead of getDoc() to fetch the collection
+
+    const qSnap = getDocs(subColRef)
+    console.log(qSnap.docs.map(d => ({id: d.id, ...d.data()})))
+
+
+    console.log('db', db);
+    const addSubCollection = addDoc(collection(db,shopSnapshot,"notification"),{
+      color:color
+    })
+
+    const addDataScript = addDoc(collection(db, "shop"), {
+      shop: shop,
+      accessToken: accessToken,
+      dateExample: Timestamp.fromDate(new Date("December 7, 2021"))
+    })
+
+      setDoc(doc(db, "shop", `notification`, `${shopdata[0].id}`), {
+        Name: "CAted college"
+    })
+
+    const usersCollectionRef = collection(db, 'shop');
+    console.log(usersCollectionRef,'userscollection]}}}}}}}}}}}}}}}}}}')
+
+
+    const docRef = addDoc(collection(db, "shop"+shopdata[0].id+ "notification"), {
+      dateExample: Timestamp.fromDate(new Date("December 10, 1815")),
+      color: color
+    });
+
+
+
+       const shopCol = query(collection(db, "shop"));
+    const shopSnapshot = await getDocs(shopCol);
+    const shopdata = [];
+
+    shopSnapshot.forEach((doc) => {
+      setId(doc.id)
+      // console.log(doc.id, " => ", doc.data());
+      shopdata.push({
+        ...doc.data(),
+        id: doc.id
+      })
+    });
+
+    await addDoc(collection(db, 'shop', id, 'notes'), {
+      color: color,
+  });
+
+
+      addNotification = () => {
+      try {
+          console.log('db', db);
+          const docRef = addDoc(collection(db, "shop","notification"), {
+              dateExample: Timestamp.fromDate(new Date("December 10, 1815")),
+              color:color
+          });
+
+      } catch (e) {
+          alert(e, 'error')
+      }
+  }
+
+   await addDoc(collection(db, 'shop', id , 'notifications'), {
+      color: color,
+      bgcolor:bgcolor,
+      text:nameFieldValue,
+      dateExample: Timestamp.fromDate(new Date())
+    }); -->

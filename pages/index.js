@@ -7,7 +7,8 @@ import PageCompo from '../components/PageCompo';
 import DatePickerExample from '../components/DatePickerCompo';
 import FrameComp from '../components/FrameComp'
 
-export default function Index() {
+export default function Index(props) {
+  console.log('props', props);
   const [connected, setConnected] = useState(false);
   const accountName = connected ? 'Jane Appleseed' : '';
 
@@ -51,7 +52,7 @@ export default function Index() {
         termsOfService={terms}
       /> */}
 
-      <FrameComp/>
+      <FrameComp shop={props.shop}/>
 
     
 
