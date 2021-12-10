@@ -8,7 +8,9 @@ import next from "next";
 import Router from "koa-router";
 import { createLexer } from "graphql";
 import { db } from '../firebase'
-import { query, getDocs, collection, orderBy, deleteField, updateDoc, onSnapshot, addDoc, deleteDoc, doc, Timestamp } from "firebase/firestore";
+import cors from "@koa/cors";
+import { query, getDocs, collection, where, updateDoc, limit, addDoc, deleteDoc, doc, Timestamp } from "firebase/firestore";
+
 
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 8081;
@@ -35,12 +37,70 @@ const ACTIVE_SHOPIFY_SHOPS = {};
 
 app.prepare().then(async () => {
   const server = new Koa();
+  server.use(cors());
+  // server.use(cors());
   const router = new Router();
 
-  // router.get("/script", async (ctx) => {
-  //   ctx.type = 'application/javascript; charset=utf-8';
-  //   ctx.body = 'check response';
-  // })
+  router.get("/notification", async (ctx) => {
+    const { query } = ctx.request;
+    const shop1 = query.shop;
+
+    console.log(shop1,'shop1')
+
+    const shopData = [];
+    const notificationsData = [];
+    const shopsRef = collection(db, "shop");
+    // Create a query against the collection.
+    const q = query(shopsRef, where("shop", "==", shop), limit(1));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (d) => {
+      // doc.data() is never undefined for query doc snapshots
+      const data = d.data();
+      if (shop === data.shop) {
+        shopData.push({ ...data, id: d.id })
+        console.log(shopData, 'shopdata ====')
+        const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
+        if (subcollectionSnapshot.docs.length > 0) {
+          subcollectionSnapshot.forEach((doc1) => {
+            // console.log('subcollection', doc1);
+            console.log(doc1.id, " =>>>>>> ]]]]]]]]]", doc1.data());
+            notificationsData.push({ ...doc1.data(), id: doc1.id })
+            console.log(notificationsData, 'notification Data')
+          });
+        }
+      }
+    })
+    ctx.body = {
+      text: notificationsData.text,
+      color: notificationsData.color,
+      bgcolor: notificationsData.bgcolor
+    };
+
+    // console.log(shop,'======')
+
+    // router.get("/test2", verifyRequest(), async(ctx, res) => {
+    //   const {shop, accessToken } = ctx.session;
+    //   console.log(shop);
+    //   console.log(accessToken);
+    // })
+    // router.get("/test", async (ctx) => {
+    //   const config = {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'X-Shopify-Access-Token': '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'
+    //     }
+    //   }
+    //   await axios.get('${the_store_name_belongs_here}/admin/api/2021-07/shop.json', config).then(res => {
+    //     ctx.body = res.data;
+    //   });
+    // });
+
+    // get shop data from firebase
+    
+  })
+
+
+
 
   server.keys = [Shopify.Context.API_SECRET_KEY];
   server.use(
@@ -66,12 +126,6 @@ app.prepare().then(async () => {
           );
         }
 
-        // Script Tag Write
-        // const client = new Shopify.Clients.Rest(shop, accessToken);
-        // const data = await client.get({
-        //   path: 'script_tags/596726825',
-        // });
-
 
         // retrive all script tag
         const client = new Shopify.Clients.Rest(shop, accessToken);
@@ -79,14 +133,23 @@ app.prepare().then(async () => {
           path: 'script_tags'
         });
         console.log('dataScriptTags', dataScriptTags);
-        if (dataScriptTags.body.script_tags.length === 0) {
+        // if (dataScriptTags.body.script_tags.length === 0) {
 
+        //   const createScript = await client.post({
+        //     path: 'script_tags',
+        //     data: { "script_tag": { "event": "onload", "src": `${process.env.HOST}/script.js` } },
+        //     type: DataType.JSON,
+        //   });
+        // }
+        const filteredScripts = dataScriptTags.body.script_tags.filter((script) => script.src === `${process.env.HOST}/script.js`);
+        if (filteredScripts.length == 0) {
           const createScript = await client.post({
             path: 'script_tags',
             data: { "script_tag": { "event": "onload", "src": `${process.env.HOST}/script.js` } },
             type: DataType.JSON,
           });
         }
+
 
         const shopCol = query(collection(db, "shop"));
         const shopSnapshot = await getDocs(shopCol);
@@ -98,20 +161,9 @@ app.prepare().then(async () => {
             ...doc.data(),
             id: doc.id
           })
-         
+
         });
-        console.log(shopdata,'0>>>>>>>>>>>>>>>>>>>>',shopdata[0].id)
-
-
-        // if(shopdata){
-        //   const shopRef = doc(db, "shop", shopdata[0].id);
-        //   console.log('[[[[[[[[[[[[[[[',shopRef,']]]]]]]]]]]]]]]]]]]]',accessToken)
-        //   updateDoc(shopRef, {
-        //     accessToken: accessToken,
-        //     dateExample: Timestamp.fromDate(new Date("December 7, 2021"))
-        //   });
-          
-        // }
+        console.log(shopdata, '0>>>>>>>>>>>>>>>>>>>>', shopdata[0].id)
 
         if (!shopdata) {
           const addDataScript = addDoc(collection(db, "shop"), {
@@ -119,15 +171,13 @@ app.prepare().then(async () => {
             accessToken: accessToken,
             dateExample: Timestamp.fromDate(new Date("December 7, 2021"))
           })
-        }else{
+        } else {
           const shopRef = doc(db, "shop", shopdata[0].id);
-          console.log('[[[[[[[[[[[[[[[',shopRef,']]]]]]]]]]]]]]]]]]]]',accessToken)
           updateDoc(shopRef, {
             accessToken: accessToken,
             dateExample: Timestamp.fromDate(new Date())
           });
         }
-
 
 
         // Redirect to app with shop parameter upon auth
@@ -172,7 +222,6 @@ app.prepare().then(async () => {
       await handleRequest(ctx);
     }
   });
-
 
 
 

@@ -8,16 +8,12 @@ import {
   Button,
   Stack
 } from "@shopify/polaris";
-import ColorPickerComp from './ColorPickerComp';
-import { query, getDocs, collection, updateDoc, limit, addDoc, deleteDoc, doc, Timestamp, where, serverTimestamp, setDoc } from "firebase/firestore";
+import { query, getDocs, collection, updateDoc, limit, doc, Timestamp, where, setDoc } from "firebase/firestore";
 import { auth, db } from '../firebase'
 
 
 export default function FrameComp({ shop }) {
 
-  const [id, setId] = useState('');
-  const [notificationId, setNotificationId] = useState('');
-  const [notification, setNotification] = useState([]);
   const [shopData, setShopData] = useState({});
   const [notificationData, setNotificationData] = useState({});
   const [updateSubcollection, setUpdateSubCollection] = useState('')
@@ -51,7 +47,6 @@ export default function FrameComp({ shop }) {
   const subColl = async () => {
 
     const shopsRef = collection(db, "shop");
-
     // Create a query against the collection.
     const q = query(shopsRef, where("shop", "==", shop), limit(1));  //limit 1
     const querySnapshot = await getDocs(q);
@@ -60,105 +55,27 @@ export default function FrameComp({ shop }) {
       const data = d.data();
       if (shop === data.shop) {
         setShopData({ ...data, id: d.id });
+        // console.log(shopData, 'shopdata ====')
         const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
-
-        // if(!subcollectionSnapshot){
-
-        //   await addDoc(subcollectionSnapshot, {
-        //     color: rgbaColor,
-        //     bgcolor: rgbaBgColor,
-        //     text: nameFieldValue,
-        //     dateExample: Timestamp.fromDate(new Date())
-        //   })
-        // }
         setUpdateSubCollection(subcollectionSnapshot)
-        console.log('subcollectionSnapshot', subcollectionSnapshot.docs.length, '==========', updateSubcollection);
         if (subcollectionSnapshot.docs.length > 0) {
           subcollectionSnapshot.forEach((doc1) => {
-            // DO SOMETHING
-            console.log('subcollection', doc1);
+            // console.log('subcollection', doc1);
             console.log(doc1.id, " =>>>>>> ", doc1.data());
             setNotificationData({ ...doc1.data(), id: doc1.id });
+            console.log(notificationData,'frame notification compo')
           });
         } else {
-          console.log('Here');
-          // const notesRef = doc(db, 'shop', d.id, 'notifications', shop); 
-          // const noteRef = await setDoc(collection(db, notesRef), {
-          //     title: 'test',
-          //     body: 'comentario por defecto.',
-          //     timestamp: serverTimestamp() // You also had an extra coma here
-          // });
           await setDoc(doc(db, "shop", d.id, 'notifications', shop), {
             color: color,
             bgcolor: bgcolor,
             text: nameFieldValue
           }, { merge: true });
-          //console.log("Note written with ID: ", noteRef.id);
-          //  await addDoc(subcollectionSnapshot, {
-          //   color: rgbaColor,
-          //   bgcolor: rgbaBgColor,
-          //   text: nameFieldValue,
-          //   dateExample: Timestamp.fromDate(new Date())
-          // })
+
         }
       }
-      // console.log(doc.id, " =>==>> ", doc.data());
     });
-
-
-    // if(!notificationData){
-
-    //   await addDoc(collection(db, 'shop', id, 'notifications'), {
-    //     color: rgbaColor,
-    //     bgcolor: rgbaBgColor,
-    //     text: nameFieldValue,
-    //     dateExample: Timestamp.fromDate(new Date())
-    //   })
-
-    // }
-
-
     return true
-
-
-
-    // const shopCol = query(collection(db, "shop"));
-    // const shopSnapshot = await getDocs(shopCol);
-    // const shopdata = [];
-    // shopSnapshot.forEach((doc) => {
-    //   setId(doc.id)
-    //   // console.log(doc.id, " => ", doc.data());
-    //   shopdata.push({
-    //     ...doc.data(),
-    //     id: doc.id
-    //   })
-    // });
-
-    // const subColRef = collection(db, "shop", id, "notifications");
-    // console.log(subColRef, 'kkkkkkkkkkkkkkkkkkkkkkkkkkk')
-    // const subSnapshot = await getDocs(subColRef);
-    // const notificationData = [];
-    // subSnapshot.forEach((doc) => {
-    //   console.log(doc.id, " =>kkkkkk>>>>>>>>>> ", doc.data());
-    //   setNotificationId(doc.id)
-    //   notificationData.push({
-    //     ...doc.data(),
-    //     id: doc.id
-    //   })
-
-    //   console.log(notificationId,'ooooooooooooooo',notification)
-    //   setNotification(notificationData)
-    // });
-
-    // if (!notification) {
-    //   await addDoc(collection(db, 'shop', id, 'notifications'), {
-    //     color: rgbaColor,
-    //     bgcolor: rgbaBgColor,
-    //     text: nameFieldValue,
-    //     dateExample: Timestamp.fromDate(new Date())
-    //   })
-    // }
-
   }
 
   const [popoverActive, setPopoverActive] = useState(false)
@@ -272,26 +189,16 @@ export default function FrameComp({ shop }) {
     setToastActive(true);
     setStoreName(defaultState.current.nameFieldValue);
 
-    // if (updateSubcollection.docs.length == 0) {
-    //   const subCollection = doc(db, "shop", d.id, 'notifications', shop);
-    //   updateDoc(subCollection, {
-    //     color: rgbaColor,
-    //     bgcolor: rgbaBgColor,
-    //     text: nameFieldValue,
-    //     dateExample: Timestamp.fromDate(new Date())
-    //   });
-    // }
+    if (updateSubcollection.docs.length > 0) {
+      const subCollection = doc(db, "shop", shopData.id, 'notifications', shop);
+      updateDoc(subCollection, {
+        color: rgbaColor,
+        bgcolor: rgbaBgColor,
+        text: nameFieldValue,
+        dateExample: Timestamp.fromDate(new Date())
+      });
+    }
 
-    // if (notification) {
-    //   const subCollection = doc(db, "shop", id, "notifications", notificationId);
-    //   console.log('kkkkkkkkk', subCollection, 'kkkkkkkkk', notificationId, 'kkkkkkk', storeName)
-    //   updateDoc(subCollection, {
-    //     color: rgbaColor,
-    //     bgcolor: rgbaBgColor,
-    //     text: nameFieldValue,
-    //     dateExample: Timestamp.fromDate(new Date())
-    //   });
-    // }
 
     setNameFieldValue('')
     subColl();

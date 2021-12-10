@@ -115,6 +115,98 @@ rgbaBgColor
       }
   }
 
+
+    // if (notification) {
+    //   const subCollection = doc(db, "shop", id, "notifications", notificationId);
+    //   console.log('kkkkkkkkk', subCollection, 'kkkkkkkkk', notificationId, 'kkkkkkk', storeName)
+    //   updateDoc(subCollection, {
+    //     color: rgbaColor,
+    //     bgcolor: rgbaBgColor,
+    //     text: nameFieldValue,
+    //     dateExample: Timestamp.fromDate(new Date())
+    //   });
+    // }
+
+
+
+    // const shopCol = query(collection(db, "shop"));
+    // const shopSnapshot = await getDocs(shopCol);
+    // const shopdata = [];
+    // shopSnapshot.forEach((doc) => {
+    //   setId(doc.id)
+    //   // console.log(doc.id, " => ", doc.data());
+    //   shopdata.push({
+    //     ...doc.data(),
+    //     id: doc.id
+    //   })
+    // });
+
+    // const subColRef = collection(db, "shop", id, "notifications");
+    // console.log(subColRef, 'kkkkkkkkkkkkkkkkkkkkkkkkkkk')
+    // const subSnapshot = await getDocs(subColRef);
+    // const notificationData = [];
+    // subSnapshot.forEach((doc) => {
+    //   console.log(doc.id, " =>kkkkkk>>>>>>>>>> ", doc.data());
+    //   setNotificationId(doc.id)
+    //   notificationData.push({
+    //     ...doc.data(),
+    //     id: doc.id
+    //   })
+
+    //   console.log(notificationId,'ooooooooooooooo',notification)
+    //   setNotification(notificationData)
+    // });
+
+    // if (!notification) {
+    //   await addDoc(collection(db, 'shop', id, 'notifications'), {
+    //     color: rgbaColor,
+    //     bgcolor: rgbaBgColor,
+    //     text: nameFieldValue,
+    //     dateExample: Timestamp.fromDate(new Date())
+    //   })
+    // }
+
+
+    // const notesRef = doc(db, 'shop', d.id, 'notifications', shop); 
+    // const noteRef = await setDoc(collection(db, notesRef), {
+    //     title: 'test',
+    //     body: 'comentario por defecto.',
+    //     timestamp: serverTimestamp() // You also had an extra coma here
+    // });
+
+
+
+    // if(!notificationData){
+
+    //   await addDoc(collection(db, 'shop', id, 'notifications'), {
+    //     color: rgbaColor,
+    //     bgcolor: rgbaBgColor,
+    //     text: nameFieldValue,
+    //     dateExample: Timestamp.fromDate(new Date())
+    //   })
+
+    // }
+
+
+        // if(shopdata){
+        //   const shopRef = doc(db, "shop", shopdata[0].id);
+        //   console.log('[[[[[[[[[[[[[[[',shopRef,']]]]]]]]]]]]]]]]]]]]',accessToken)
+        //   updateDoc(shopRef, {
+        //     accessToken: accessToken,
+        //     dateExample: Timestamp.fromDate(new Date("December 7, 2021"))
+        //   });
+          
+        // }
+
+
+        // Script Tag Write
+        // const client = new Shopify.Clients.Rest(shop, accessToken);
+        // const data = await client.get({
+        //   path: 'script_tags/596726825',
+        // });
+
+
+
    await addDoc(collection(db, 'shop', id , 'notifications'), {
       color: color,
       bgcolor:bgcolor,
