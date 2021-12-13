@@ -1,36 +1,65 @@
 
 const shop = Shopify.shop;
-console.log('shop', shop);
+//console.log('shop ----', shop);
+
+
+// var newL="/notification?shop=savreen-tiwana.myshopify.com&nm=ss";
+// console.log(getParameterByName('nm', newL));
 
 const notification = getNotification();
 
 function getNotification() {
     //ajax request to server to get notification
     var xhr = new XMLHttpRequest();
-    var url = `https://8096-103-163-58-238.ngrok.io/notification?shop=${shop}`;
-    xhr.open("GET", url, true,{ mode: 'no-cors'});
 
+
+    var url = `https://ac2f-103-163-58-238.ngrok.io/notification?shop=${shop}`;
+    xhr.open("GET", url, true);
+    // request.setRequestHeader("Authorization", "Bearer " + access_token);
     xhr.onreadystatechange = function () {
-        if (this.readyState == 4) {
-            console.log(this.responseText);
-        }
+        console.log('pp')
+        // if (this.readyState == 4 && this.status == 200) {
+        //     console.log('/////////////');
+        // }
     }
     xhr.send();
 
-    // Url for the request
-    // var url = 'https://8096-103-163-58-238.ngrok.io/notifications?shop=${shop}';
 
-    // // Making our request
-    // fetch(url, { mode: 'no-cors' }, { method: 'GET' })
+    // $.ajax({
+
+    //     // Our sample url to make request
+    //     url:
+    //         `https://ac2f-103-163-58-238.ngrok.io/notification?shop=${shop}`,
+
+    //     // Type of Request
+    //     type: "GET",
+
+    //     // Function to call when to
+    //     // request is ok
+    //     success: function (data) {
+    //         var x = JSON.stringify(data);
+    //         console.log(x);
+    //     },
+
+    //     // Error handling
+    //     error: function (error) {
+    //         console.log(`Error ${error}`);
+    //     }
+    // });
+
+
+    // Url for the request    cors-anywhere.herokuapp.com/    ,{ mode: 'no-cors'}
+    // var url = `https://ac2f-103-163-58-238.ngrok.io/notifications?shop=${shop}`;
+    // console.log('mm')
+    // fetch(url, { method: 'GET'})
     //     .then(Result => Result.json())
     //     .then(string => {
-
+    //         console.log('string',string)
     //         // Printing our response
-    //         console.log(string);
+    //         // console.log(string);
 
     //     })
     //     .catch(errorMsg => { console.log(errorMsg); });
-
 }
 
 

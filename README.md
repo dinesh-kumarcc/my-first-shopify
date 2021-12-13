@@ -32,6 +32,31 @@ This respository is available as open source under the terms of the [MIT License
 
 <!-- 
 
+function getParameterByName(queryString, url) {
+    var match = RegExp('[?&]' + queryString + '=([^&]*)').exec(url);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+// var newL="/notification?shop=savreen-tiwana.myshopify.com&nm=ss";
+// console.log(getParameterByName('nm', newL));
+
+
+
+ var newL="/notification?shop=savreen-tiwana.myshopify.com";
+    console.log(newUL);
+    var splitL=newL.toString().split("?");
+    console.log(splitL);
+
+    const shop = splitL.shift();
+    console.log(splitL);
+
+    var useShop =  splitL.toString().split("=");
+    console.log(onlyShop)
+
+    const shopname = onlyShop.shift();
+    console.log(shopname)
+
+
 rgbaColor
 rgbaBgColor
 

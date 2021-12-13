@@ -14,6 +14,8 @@ import { auth, db } from '../firebase'
 
 export default function FrameComp({ shop }) {
 
+  console.log(shop,'shop.................')
+
   const [shopData, setShopData] = useState({});
   const [notificationData, setNotificationData] = useState({});
   const [updateSubcollection, setUpdateSubCollection] = useState('')
@@ -24,8 +26,11 @@ export default function FrameComp({ shop }) {
 
   useEffect(() => {
 
+    localStorage.setItem('shop',shop)
+
+
     subColl();
-    console.log(color, bgcolor, nameFieldValue, 'ppppppppppppppppppppppppppp')
+    // console.log(color, bgcolor, nameFieldValue, 'ppppppppppppppppppppppppppp')
 
   }, [])
 
@@ -63,7 +68,7 @@ export default function FrameComp({ shop }) {
             // console.log('subcollection', doc1);
             console.log(doc1.id, " =>>>>>> ", doc1.data());
             setNotificationData({ ...doc1.data(), id: doc1.id });
-            console.log(notificationData,'frame notification compo')
+            // console.log(notificationData,'frame notification compo')
           });
         } else {
           await setDoc(doc(db, "shop", d.id, 'notifications', shop), {

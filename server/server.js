@@ -42,59 +42,55 @@ app.prepare().then(async () => {
   const router = new Router();
 
   router.get("/notification", async (ctx) => {
-    const { query } = ctx.request;
-    const shop1 = query.shop;
 
-    console.log(shop1,'shop1')
-
-    const shopData = [];
-    const notificationsData = [];
-    const shopsRef = collection(db, "shop");
-    // Create a query against the collection.
-    const q = query(shopsRef, where("shop", "==", shop), limit(1));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach(async (d) => {
-      // doc.data() is never undefined for query doc snapshots
-      const data = d.data();
-      if (shop === data.shop) {
-        shopData.push({ ...data, id: d.id })
-        console.log(shopData, 'shopdata ====')
-        const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
-        if (subcollectionSnapshot.docs.length > 0) {
-          subcollectionSnapshot.forEach((doc1) => {
-            // console.log('subcollection', doc1);
-            console.log(doc1.id, " =>>>>>> ]]]]]]]]]", doc1.data());
-            notificationsData.push({ ...doc1.data(), id: doc1.id })
-            console.log(notificationsData, 'notification Data')
-          });
-        }
-      }
-    })
     ctx.body = {
-      text: notificationsData.text,
-      color: notificationsData.color,
-      bgcolor: notificationsData.bgcolor
-    };
+      text:'text',
+      color:'color'
+    }
 
-    // console.log(shop,'======')
+    // console.log('~~~~~+++~~~~~~',ctx,'~~~~~~~~+++~~~~~~~')
+    // console.log('<<<<<<<<<<<',ctx.request.query.shop,'>>>>>>>>>>>>>>')
+    // console.log('+++++++++',ctx.request,'++++++++++++')
+    // // const { query } = ctx.request;
+    // // const shop1 = query.shop;
+    // // console.log('===========',shop1,'shop1=================')
 
-    // router.get("/test2", verifyRequest(), async(ctx, res) => {
-    //   const {shop, accessToken } = ctx.session;
-    //   console.log(shop);
-    //   console.log(accessToken);
-    // })
-    // router.get("/test", async (ctx) => {
-    //   const config = {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'X-Shopify-Access-Token': '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'
+    // const shop = ctx.request.query.shop
+
+    // const shopData = [];
+    // const notificationsData = [];
+    // const shopsRef = collection(db, "shop");
+    // // Create a query against the collection.
+    // const q = query(shopsRef, where("shop", "==", shop), limit(1));
+    // const querySnapshot = await getDocs(q);
+    // querySnapshot.forEach(async (d) => {
+    //   // doc.data() is never undefined for query doc snapshots
+    //   const data = d.data();
+    //   if (shop === data.shop) {
+    //     shopData.push({ ...data, id: d.id })
+    //     console.log(shopData, 'shopdata ====')
+    //     const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
+    //     if (subcollectionSnapshot.docs.length > 0) {
+    //       subcollectionSnapshot.forEach((doc1) => {
+    //         // console.log('subcollection', doc1);
+    //         console.log(doc1.id, " =>>>>>> ]]]]]]]]]", doc1.data());
+    //         notificationsData.push({ ...doc1.data(), id: doc1.id })
+    //         console.log(notificationsData, '==============notification Data ============')
+    //       });
     //     }
     //   }
-    //   await axios.get('${the_store_name_belongs_here}/admin/api/2021-07/shop.json', config).then(res => {
-    //     ctx.body = res.data;
-    //   });
-    // });
+    // })
+    // ctx.body = {
+    //   text: notificationsData.text,
+    //   color: notificationsData.color,
+    //   bgcolor: notificationsData.bgcolor
+    // };
 
+
+
+    // console.log(shop,'======'=====================================================================)
+
+  
     // get shop data from firebase
     
   })
