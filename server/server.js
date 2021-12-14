@@ -49,7 +49,7 @@ app.prepare().then(async () => {
     const notificationsData = [];
     const customData = [];
     const shopsRef = collection(db, "shop");
-    // Create a query against the collection.
+    // Create a query against the collection.   
     const q = query(shopsRef, where("shop", "==", shop), limit(1));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach(async (d) => {
