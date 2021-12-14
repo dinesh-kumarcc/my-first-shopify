@@ -32,6 +32,8 @@ This respository is available as open source under the terms of the [MIT License
 
 <!-- 
 
+https://1187-103-163-58-238.ngrok.io/
+
 function getParameterByName(queryString, url) {
     var match = RegExp('[?&]' + queryString + '=([^&]*)').exec(url);
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
