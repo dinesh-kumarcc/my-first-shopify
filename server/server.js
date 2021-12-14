@@ -72,7 +72,7 @@ app.prepare().then(async () => {
 
     // console.log(staticShop,'staticShop',staticNotification,'staticNotificatio')
     console.log(notificationsData, ';;;;;;;arrNotifi;;>>>>>;;;')
-    console.log('custom Data 123 99999999999999999999999999');
+    console.log('custom Data 1234567');
 
     // ctx.body = notificationsData;
 
