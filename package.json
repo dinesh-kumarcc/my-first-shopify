@@ -1,6 +1,6 @@
 {
   "name": "shopify-app-node",
-  "homepage":"https://first-shopify-code-corner-app.herokuapp.com/index.html",
+  "homepage":"https://first-shopify-code-corner-app.herokuapp.com/",
   "version": "1.0.0",
   "description": "Shopify's node app for CLI tool",
   "scripts": {
