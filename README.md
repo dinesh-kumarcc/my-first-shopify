@@ -41,6 +41,41 @@ function getParameterByName(queryString, url) {
 // console.log(getParameterByName('nm', newL));
 
 
+const subColl = async () => {
+
+    const shopsRef = collection(db, "shop");
+    // Create a query against the collection.
+    const q = query(shopsRef, where("shop", "==", shop), limit(1));  //limit 1
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (d) => {
+      // doc.data() is never undefined for query doc snapshots
+      const data = d.data();
+      if (shop === data.shop) {
+        setShopData({ ...data, id: d.id });
+        // console.log(shopData, 'shopdata ====')
+        const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
+        setUpdateSubCollection(subcollectionSnapshot)
+        if (subcollectionSnapshot.docs.length > 0) {
+          subcollectionSnapshot.forEach((doc1) => {
+            // console.log('subcollection', doc1);
+            console.log(doc1.id, " =>>>>>> ", doc1.data());
+            setNotificationData({ ...doc1.data(), id: doc1.id });
+            // console.log(notificationData,'frame notification compo')
+          });
+        } else {
+          await setDoc(doc(db, "shop", d.id, 'notifications', shop), {
+            color: color,
+            bgcolor: bgcolor,
+            text: nameFieldValue
+          }, { merge: true });
+
+        }
+      }
+    });
+    console.log(notificationData,';;notificationData')
+    return true
+  }
+
 
  var newL="/notification?shop=savreen-tiwana.myshopify.com";
     console.log(newUL);

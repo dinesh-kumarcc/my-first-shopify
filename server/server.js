@@ -43,56 +43,52 @@ app.prepare().then(async () => {
 
   router.get("/notification", async (ctx) => {
 
-    ctx.body = {
-      text:'text',
-      color:'color'
-    }
+    const shop = ctx.request.query.shop
 
-    // console.log('~~~~~+++~~~~~~',ctx,'~~~~~~~~+++~~~~~~~')
-    // console.log('<<<<<<<<<<<',ctx.request.query.shop,'>>>>>>>>>>>>>>')
-    // console.log('+++++++++',ctx.request,'++++++++++++')
-    // // const { query } = ctx.request;
-    // // const shop1 = query.shop;
-    // // console.log('===========',shop1,'shop1=================')
+    const shopData = [];
+    const notificationsData = [];
+    const customData = [];
+    const shopsRef = collection(db, "shop");
+    // Create a query against the collection.
+    const q = query(shopsRef, where("shop", "==", shop), limit(1));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (d) => {
+      const data = d.data();
+      if (shop === data.shop) {
+        shopData.push({ ...data, id: d.id });
+        customData.push({id:'test'});
+        const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
+        if (subcollectionSnapshot.docs.length > 0) {
+          //console.log('ssssssssssssssss', subcollectionSnapshot.docs.map(d => ({ id: d.id, ...d.data() })))
+          subcollectionSnapshot.forEach((doc1) => {
+            customData.push({newKey:'test'});
+            // console.log(doc1.id, " =>>>>>> ]]]]]]]]]", doc1.data());
+            notificationsData.push({ ...doc1.data(), id: doc1.id })
+          });
+        }
+      }
+      // console.log(notificationsData,'//++//notification data//++//')
+    })
 
-    // const shop = ctx.request.query.shop
+    // console.log(staticShop,'staticShop',staticNotification,'staticNotificatio')
+    console.log(notificationsData, ';;;;;;;arrNotifi;;;+++++;;;')
+    console.log('custom Data 123');
 
-    // const shopData = [];
-    // const notificationsData = [];
-    // const shopsRef = collection(db, "shop");
-    // // Create a query against the collection.
-    // const q = query(shopsRef, where("shop", "==", shop), limit(1));
-    // const querySnapshot = await getDocs(q);
-    // querySnapshot.forEach(async (d) => {
-    //   // doc.data() is never undefined for query doc snapshots
-    //   const data = d.data();
-    //   if (shop === data.shop) {
-    //     shopData.push({ ...data, id: d.id })
-    //     console.log(shopData, 'shopdata ====')
-    //     const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
-    //     if (subcollectionSnapshot.docs.length > 0) {
-    //       subcollectionSnapshot.forEach((doc1) => {
-    //         // console.log('subcollection', doc1);
-    //         console.log(doc1.id, " =>>>>>> ]]]]]]]]]", doc1.data());
-    //         notificationsData.push({ ...doc1.data(), id: doc1.id })
-    //         console.log(notificationsData, '==============notification Data ============')
-    //       });
-    //     }
-    //   }
-    // })
+    // ctx.body = notificationsData;
+
     // ctx.body = {
-    //   text: notificationsData.text,
-    //   color: notificationsData.color,
-    //   bgcolor: notificationsData.bgcolor
+    //   text: allNotification.text,
+    //   color: allNotification.color,
+    //   bgcolor: allNotification.bgcolor
     // };
 
 
 
     // console.log(shop,'======'=====================================================================)
 
-  
+
     // get shop data from firebase
-    
+
   })
 
 
@@ -227,3 +223,15 @@ app.prepare().then(async () => {
     console.log(`> Ready on http://localhost:${port}`);
   });
 });
+
+
+
+    // console.log('~~~~~+++~~~~~~',ctx,'~~~~~~~~+++~~~~~~~')
+    // console.log('<<<<<<<<<<<',ctx.request.query.shop,'>>>>>>>>>>>>>>')
+    // console.log('+++++++++',ctx.request,'++++++++++++')
+            // allNotification = Object.assign({}, ...notificationsData);
+ // const notification = {
+    //   text:'text',
+    //   color:'color'
+    // }
+    // ctx.body = notification

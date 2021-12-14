@@ -13,40 +13,25 @@ function getNotification() {
     var xhr = new XMLHttpRequest();
 
 
-    var url = `https://ac2f-103-163-58-238.ngrok.io/notification?shop=${shop}`;
-    xhr.open("GET", url, true);
-    // request.setRequestHeader("Authorization", "Bearer " + access_token);
-    xhr.onreadystatechange = function () {
-        console.log('pp')
-        // if (this.readyState == 4 && this.status == 200) {
-        //     console.log('/////////////');
-        // }
+    // var url = `https://1187-103-163-58-238.ngrok.io/notification?shop=${shop}`;
+    // xhr.open("GET", url, true);
+    // // request.setRequestHeader("Authorization", "Bearer " + access_token);
+    // xhr.onreadystatechange = function () {
+    //     console.log('pp')
+    //     // if (this.readyState == 4 && this.status == 200) {
+    //     //     console.log('/////////////');
+    //     // } 
+    // }
+    // xhr.send();
+
+
+    var xhr = new XMLHttpRequest();
+    var url = `https://1187-103-163-58-238.ngrok.io/notification?shop=${shop}`;
+    xhr.open("GET", url);
+    xhr.onload = function() {
+      alert(xhr.response);
     }
     xhr.send();
-
-
-    // $.ajax({
-
-    //     // Our sample url to make request
-    //     url:
-    //         `https://ac2f-103-163-58-238.ngrok.io/notification?shop=${shop}`,
-
-    //     // Type of Request
-    //     type: "GET",
-
-    //     // Function to call when to
-    //     // request is ok
-    //     success: function (data) {
-    //         var x = JSON.stringify(data);
-    //         console.log(x);
-    //     },
-
-    //     // Error handling
-    //     error: function (error) {
-    //         console.log(`Error ${error}`);
-    //     }
-    // });
-
 
     // Url for the request    cors-anywhere.herokuapp.com/    ,{ mode: 'no-cors'}
     // var url = `https://ac2f-103-163-58-238.ngrok.io/notifications?shop=${shop}`;
