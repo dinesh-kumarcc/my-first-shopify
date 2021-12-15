@@ -18,12 +18,35 @@ function getNotification() {
       alert(xhr.response,';;;;;;');
       console.log(xhr.response,'ppl')
       const resData = xhr.response;
+      console.log(resData,'resData')
       return resData
     }   
     xhr.send();
 
-
 }
+
+
+function getCategoryList(callback) {
+    var xhr = new XMLHttpRequest();
+  
+    xhr.onreadystatechange = (e) => {
+      if (xhr.readyState !== 4) {
+        return;
+      }
+  
+      if (xhr.status === 200) {
+        console.log('SUCCESS', xhr.responseText);
+        callback(JSON.parse(xhr.responseText));
+      } else {
+        console.warn('request_error');
+      }
+    };
+  
+    xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
+    xhr.send();
+  }
+  
+  getCategoryList(data => console.log("The data is:", data));
 
 
 const notification = getNotification();
