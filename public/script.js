@@ -26,7 +26,7 @@ function getNotification() {
 }
 
 
-function getCategorygetCategoryList(callback) {
+function getCategoryList(callback) {
     var xhr = new XMLHttpRequest();
   
     xhr.onreadystatechange = (e) => {
