@@ -48,7 +48,7 @@ app.prepare().then(async () => {
     const shop = ctx.request.query.shop
 
     const shopData = [];
-    const shopId='';
+    const shopId ='';
     const notificationsData = [];
     const shopsRef = collection(db, "shop");  
     const q = query(shopsRef, where("shop", "==", shop), limit(1));
@@ -56,7 +56,7 @@ app.prepare().then(async () => {
     console.log(querySnapshot,'quersnap')
     querySnapshot.forEach(async(d)=>{
       const data = d.data();
-      shopId(data.id)
+      shopId.push(data.id)
       console.log(shopId,'shopid----')
       if(shop === data.shop){
         shopData.push({...data, id: d.id});
