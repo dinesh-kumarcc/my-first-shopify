@@ -32,6 +32,37 @@ This respository is available as open source under the terms of the [MIT License
 
 <!-- 
 
+
+ajax -- 
+    // Url for the request    cors-anywhere.herokuapp.com/    ,{ mode: 'no-cors'}
+    // var url = `https://ac2f-103-163-58-238.ngrok.io/notifications?shop=${shop}`;
+    // console.log('mm')
+    // fetch(url, { method: 'GET'})
+    //     .then(Result => Result.json())
+    //     .then(string => {
+    //         console.log('string',string)
+    //         // Printing our response
+    //         // console.log(string);
+
+    //     })
+    //     .catch(errorMsg => { console.log(errorMsg); });
+
+
+
+    // var url = `https://1187-103-163-58-238.ngrok.io/notification?shop=${shop}`;
+    // xhr.open("GET", url, true);
+    // // request.setRequestHeader("Authorization", "Bearer " + access_token);
+    // xhr.onreadystatechange = function () {
+    //     console.log('pp')
+    //     // if (this.readyState == 4 && this.status == 200) {
+    //     //     console.log('/////////////');
+    //     // } 
+    // }
+    // xhr.send();
+
+
+
+
 https://1187-103-163-58-238.ngrok.io/
 
 function getParameterByName(queryString, url) {

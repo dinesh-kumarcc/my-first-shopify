@@ -6,48 +6,25 @@ const shop = Shopify.shop;
 // var newL="/notification?shop=savreen-tiwana.myshopify.com&nm=ss";
 // console.log(getParameterByName('nm', newL));
 
-const notification = getNotification();
 
 function getNotification() {
     //ajax request to server to get notification
     var xhr = new XMLHttpRequest();
-
-
-    // var url = `https://1187-103-163-58-238.ngrok.io/notification?shop=${shop}`;
-    // xhr.open("GET", url, true);
-    // // request.setRequestHeader("Authorization", "Bearer " + access_token);
-    // xhr.onreadystatechange = function () {
-    //     console.log('pp')
-    //     // if (this.readyState == 4 && this.status == 200) {
-    //     //     console.log('/////////////');
-    //     // } 
-    // }
-    // xhr.send();
-
 
     var xhr = new XMLHttpRequest();
     var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
     xhr.open("GET", url);
     xhr.onload = function() {
       alert(xhr.response);
+    //   const resData = xhr.response;
+    //   return resData
     }
     xhr.send();
 
-    // Url for the request    cors-anywhere.herokuapp.com/    ,{ mode: 'no-cors'}
-    // var url = `https://ac2f-103-163-58-238.ngrok.io/notifications?shop=${shop}`;
-    // console.log('mm')
-    // fetch(url, { method: 'GET'})
-    //     .then(Result => Result.json())
-    //     .then(string => {
-    //         console.log('string',string)
-    //         // Printing our response
-    //         // console.log(string);
-
-    //     })
-    //     .catch(errorMsg => { console.log(errorMsg); });
 }
 
 
+const notification = getNotification();
 // https://8096-103-163-58-238.ngrok.io/notifications?shop=${shop}
 
 // `SERVER/notifications?shop=${shop}`

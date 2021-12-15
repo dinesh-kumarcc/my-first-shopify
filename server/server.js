@@ -83,27 +83,6 @@ app.prepare().then(async () => {
 
 
 
-    // querySnapshot.forEach(async (d) => {
-    //   const data = d.data();
-    //   if (shop === data.shop) {
-    //     shopData.push({ ...data, id: d.id });
-    //     // customData.push({id:'test'});
-    //     const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
-    //     if (subcollectionSnapshot.docs.length > 0) {
-    //       //console.log('ssssssssssssssss', subcollectionSnapshot.docs.map(d => ({ id: d.id, ...d.data() })))
-    //       subcollectionSnapshot.forEach((doc1) => {
-    //         // customData.push({newKey:'test'});
-    //         // console.log(doc1.id, " =>>>>>> ]]]]]]]]]", doc1.data());
-    //         notificationsData.push({ ...doc1.data(), id: doc1.id })
-    //         console.log(notificationsData.flat(2),'?????')
-    //         // var merged = [].concat.apply([], notificationsData);
-    //         // console.log(merged,'merged+++++')
-    //       });
-    //     }
-    //   }
-    //   shopData.push(...shopData,...notificationsData)
-    //   console.log(customData,'//++//notification data//++//')
-    // })
 
     // ctx.body = {
     //   text: allNotification.text,
@@ -157,11 +136,11 @@ app.prepare().then(async () => {
         //     type: DataType.JSON,
         //   });
         // }
-        const filteredScripts = dataScriptTags.body.script_tags.filter((script) => script.src === `${process.env.HOST}/script.js`);
+        const filteredScripts = dataScriptTags.body.script_tags.filter((script) => script.src === `${process.env.HOST}script.js`);
         if (filteredScripts.length == 0) {
           const createScript = await client.post({
             path: 'script_tags',
-            data: { "script_tag": { "event": "onload", "src": `${process.env.HOST}/script.js` } },
+            data: { "script_tag": { "event": "onload", "src": `${process.env.HOST}script.js` } },
             type: DataType.JSON,
           });
         }
