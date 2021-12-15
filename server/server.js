@@ -53,10 +53,11 @@ app.prepare().then(async () => {
     const shopsRef = collection(db, "shop");  
     const q = query(shopsRef, where("shop", "==", shop), limit(1));
     const querySnapshot = await getDocs(q);
+    console.log(querySnapshot,'quersnap')
     querySnapshot.forEach(async(d)=>{
       const data = d.data();
       shopId(data.id)
-      console.log(shop,'shopid----')
+      console.log(shopId,'shopid----')
       if(shop === data.shop){
         shopData.push({...data, id: d.id});
       }
