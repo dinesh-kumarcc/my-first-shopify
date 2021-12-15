@@ -66,6 +66,7 @@ app.prepare().then(async () => {
             // customData.push({newKey:'test'});
             // console.log(doc1.id, " =>>>>>> ]]]]]]]]]", doc1.data());
             notificationsData.push({ ...doc1.data(), id: doc1.id })
+            data.push({ ...doc1.data(), id: doc1.id })
             console.log(notificationsData.flat(2),'?????')
             var merged = [].concat.apply([], notificationsData);
             console.log(merged,'merged+++++')
@@ -77,8 +78,8 @@ app.prepare().then(async () => {
     })
 
     // console.log(staticShop,'staticShop',staticNotification,'staticNotificatio')
-    console.log(notificationsData, ';;;;;;;arrNotifi;;>>>>>;;;')
-    console.log(customData,'-------');
+    // console.log(notificationsData, ';;;;;;;arrNotifi;;>>>>>;;;')
+    console.log(data,'----data---');
 
     // ctx.body = notificationsData;
 
