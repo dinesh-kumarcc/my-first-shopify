@@ -37,6 +37,8 @@ function loadDoc() {
 
 loadDoc();
 
+console.log(theContacts,'theContacts')
+
 
 // function getCategoryList(callback) {
 //     var xhr = new XMLHttpRequest();
