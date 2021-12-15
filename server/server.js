@@ -56,12 +56,12 @@ app.prepare().then(async () => {
       const data = d.data();
       if (shop === data.shop) {
         shopData.push({ ...data, id: d.id });
-        customData.push({id:'test'});
+        // customData.push({id:'test'});
         const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
         if (subcollectionSnapshot.docs.length > 0) {
           //console.log('ssssssssssssssss', subcollectionSnapshot.docs.map(d => ({ id: d.id, ...d.data() })))
           subcollectionSnapshot.forEach((doc1) => {
-            customData.push({newKey:'test'});
+            // customData.push({newKey:'test'});
             // console.log(doc1.id, " =>>>>>> ]]]]]]]]]", doc1.data());
             notificationsData.push({ ...doc1.data(), id: doc1.id })
           });
