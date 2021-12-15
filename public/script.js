@@ -10,8 +10,6 @@ const shop = Shopify.shop;
 // function getNotification() {
 //     //ajax request to server to get notification
 //     var xhr = new XMLHttpRequest();
-
-//     var xhr = new XMLHttpRequest();
 //     var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
 //     xhr.open("GET", url);
 //     xhr.onload = function() {
@@ -25,31 +23,36 @@ const shop = Shopify.shop;
 
 // }
 
+var myResponse;
 
 function getCategoryList(callback) {
     var xhr = new XMLHttpRequest();
-  
+
     xhr.onreadystatechange = (e) => {
-      if (xhr.readyState !== 4) {
-        return;
-      }
-  
-      if (xhr.status === 200) {
-        console.log('SUCCESS', xhr.responseText);
-        callback(JSON.parse(xhr.responseText));
-      } else {
-        console.warn('request_error');
-      }
+        if (xhr.readyState !== 4) {
+            return;
+        }
+
+        if (xhr.status === 200) {
+            console.log('SUCCESS', xhr.responseText);
+            myResponse = xhr.responseText;
+            callback(JSON.parse(xhr.responseText));
+        } else {
+            console.warn('request_error');
+        }
     };
-  
+
     xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
     xhr.send();
-  }
-  
-getCategoryList(data => console.log("The data is:", data));
-  //const getRecord = getCategoryList(data=>data)
+}
 
-  //console.log(getData,'getData',getRecord)
+getCategoryList(data => console.log("The data is:", data));
+
+console.log(myResponse,'myResponse')
+
+//const getRecord = getCategoryList(data=>data)
+
+//console.log(getData,'getData',getRecord)
 
 // const notification = getNotification();
 
