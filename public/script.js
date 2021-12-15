@@ -1,9 +1,9 @@
 
 const shop = Shopify.shop;
 
+var testVar = {}
 // var newL="/notification?shop=savreen-tiwana.myshopify.com&nm=ss";
 // console.log(getParameterByName('nm', newL));
-
 
 
 // var theContacts=[];
@@ -31,7 +31,7 @@ function getCategoryList(callback) {
         }
 
         if (xhr.status === 200) {
-            console.log('SUCCESS', xhr.responseText);
+            //console.log('SUCCESS', xhr.responseText);
             callback(JSON.parse(xhr.responseText));
         } else {
             console.warn('request_error');
@@ -42,9 +42,9 @@ function getCategoryList(callback) {
     xhr.send();
 }
 
-getCategoryList(data => console.log("The data is:", data));
+testVar = getCategoryList(data => data);
 
-// console.log(myResponse,'myResponse')
+console.log(testVar,'myResponse')
 
 //const getRecord = getCategoryList(data=>data)
 
