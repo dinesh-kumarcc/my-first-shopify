@@ -1,7 +1,8 @@
 
 const shop = Shopify.shop;
 
-var testVar = {}
+var testVar = [];
+
 // var newL="/notification?shop=savreen-tiwana.myshopify.com&nm=ss";
 // console.log(getParameterByName('nm', newL));
 
@@ -26,13 +27,14 @@ function getCategoryList(callback) {
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = (e) => {
-        if (xhr.readyState !== 4) {
+        if (this.readyState !== 4) {
             return;
         }
 
-        if (xhr.status === 200) {
-            //console.log('SUCCESS', xhr.responseText);
-            callback(JSON.parse(xhr.responseText));
+        if (this.status === 200) {
+            //console.log('SUCCESS', this.responseText);
+            callback(JSON.parse(this.responseText));
+            testVar.push(this.responseText);
         } else {
             console.warn('request_error');
         }
@@ -42,7 +44,7 @@ function getCategoryList(callback) {
     xhr.send();
 }
 
-testVar = getCategoryList(data => data);
+getCategoryList(data);
 
 console.log(testVar,'myResponse')
 
