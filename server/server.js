@@ -157,11 +157,11 @@ app.prepare().then(async () => {
         //     type: DataType.JSON,
         //   });
         // }
-        const filteredScripts = dataScriptTags.body.script_tags.filter((script) => script.src === `${process.env.HOST}script.js`);
+        const filteredScripts = dataScriptTags.body.script_tags.filter((script) => script.src === `${process.env.HOST}/script.js`);
         if (filteredScripts.length == 0) {
           const createScript = await client.post({
             path: 'script_tags',
-            data: { "script_tag": { "event": "onload", "src": `${process.env.HOST}script.js` } },
+            data: { "script_tag": { "event": "onload", "src": `${process.env.HOST}/script.js` } },
             type: DataType.JSON,
           });
         }

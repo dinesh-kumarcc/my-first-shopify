@@ -26,7 +26,7 @@ function getNotification() {
 
 
     var xhr = new XMLHttpRequest();
-    var url = `https://1187-103-163-58-238.ngrok.io/notification?shop=${shop}`;
+    var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
     xhr.open("GET", url);
     xhr.onload = function() {
       alert(xhr.response);
