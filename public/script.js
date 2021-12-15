@@ -26,12 +26,12 @@ function getCategoryList(callback) {
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = (e) => {
-        if (this.readyState !== 4) {
+        if (xhr.readyState !== 4) {
             return;
         }
-        if (this.status === 200) {
-            //console.log('SUCCESS', this.responseText);
-          callback(JSON.parse(this.responseText));
+        if (xhr.status === 200) {
+            //console.log('SUCCESS', xhr.responseText);
+          callback(JSON.parse(xhr.responseText));
          
             // testVar.push(this.responseText);
         } else {
