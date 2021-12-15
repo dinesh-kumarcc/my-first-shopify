@@ -74,9 +74,9 @@ app.prepare().then(async () => {
     const getNotifications = Object.assign({},...notificationsData)
     console.log(notificationsData,'notificationsData',getNotifications)
 
-    ctx.body = {
-      text:getNotifications.text
-    }
+    // ctx.body = {
+    //   text:getNotifications.text
+    // }
 
 
 
