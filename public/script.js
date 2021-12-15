@@ -15,7 +15,8 @@ function getNotification() {
     var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
     xhr.open("GET", url);
     xhr.onload = function() {
-      alert(xhr.response);
+      alert(xhr.response,';;;;;;');
+      console.log(xhr.response,'pp')
     //   const resData = xhr.response;
     //   return resData
     }
