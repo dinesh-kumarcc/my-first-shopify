@@ -17,9 +17,9 @@ function getNotification() {
     xhr.onload = function() {
       alert(xhr.response,';;;;;;');
       console.log(xhr.response,'pp')
-    //   const resData = xhr.response;
-    //   return resData
-    }
+      const resData = xhr.response;
+      return resData
+    }   
     xhr.send();
 
 }
