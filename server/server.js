@@ -64,6 +64,8 @@ app.prepare().then(async () => {
             // customData.push({newKey:'test'});
             // console.log(doc1.id, " =>>>>>> ]]]]]]]]]", doc1.data());
             notificationsData.push({ ...doc1.data(), id: doc1.id })
+            var merged = [].concat.apply([], notificationsData);
+            console.log(merged,'merged+++++')
           });
         }
       }
