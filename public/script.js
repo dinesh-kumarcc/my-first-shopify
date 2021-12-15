@@ -9,29 +9,20 @@ const shop = Shopify.shop;
 
 function getNotification() {
     //ajax request to server to get notification
-    // var xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
 
-    // var xhr = new XMLHttpRequest();
-    // var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
-    // xhr.open("GET", url);
-    // xhr.onload = function() {
-    //   alert(xhr.response,';;;;;;');
-    //   console.log(xhr.response,'pp')
-    //   const resData = xhr.response;
-    //   return resData
-    // }   
-    // xhr.send();
+    var xhr = new XMLHttpRequest();
+    var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
+    xhr.open("GET", url);
+    xhr.onload = function() {
+      alert(xhr.response,';;;;;;');
+      console.log(xhr.response,'ppl')
+      const resData = xhr.response;
+      return resData
+    }   
+    xhr.send();
 
-var data = [];
-    const url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
-    fetch(url)
-        .then(
-            response => response.text() // .json(), etc.
-            // same as function(response) {return response.text();}
-        ).then(
-            html => data.push(html)
-        );
-console.log(data,'data ;;;;;;')
+
 }
 
 
