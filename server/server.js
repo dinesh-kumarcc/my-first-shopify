@@ -46,7 +46,7 @@ app.prepare().then(async () => {
     const shop = ctx.request.query.shop
 
     const shopData = [];
-    const notificationsData;
+    const notificationsData = [];
     const customData = [];
     const shopsRef = collection(db, "shop");
     // Create a query against the collection.   
