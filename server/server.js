@@ -71,7 +71,8 @@ app.prepare().then(async () => {
         notificationsData.push({...doc1.data(),id:doc1.id})
       })
     }
-    console.log(notificationsData,'notificationsData')
+    const getNotifications = Object.assign({},notificationsData)
+    console.log(notificationsData,'notificationsData',getNotifications)
 
 
 
