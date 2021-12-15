@@ -47,8 +47,9 @@ function getCategoryList(callback) {
   }
   
   const getData = getCategoryList(data => console.log("The data is:", data));
+  const getRecord = getCategoryList(data=>data)
 
-  console.log(getData,'getData')
+  console.log(getData,'getData',getRecord)
 
 // const notification = getNotification();
 
