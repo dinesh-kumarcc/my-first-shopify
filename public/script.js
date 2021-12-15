@@ -9,23 +9,35 @@ const shop = Shopify.shop;
 
 function getNotification() {
     //ajax request to server to get notification
-    var xhr = new XMLHttpRequest();
+    // var xhr = new XMLHttpRequest();
 
-    var xhr = new XMLHttpRequest();
-    var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
-    xhr.open("GET", url);
-    xhr.onload = function() {
-      alert(xhr.response,';;;;;;');
-      console.log(xhr.response,'pp')
-      const resData = xhr.response;
-      return resData
-    }   
-    xhr.send();
+    // var xhr = new XMLHttpRequest();
+    // var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
+    // xhr.open("GET", url);
+    // xhr.onload = function() {
+    //   alert(xhr.response,';;;;;;');
+    //   console.log(xhr.response,'pp')
+    //   const resData = xhr.response;
+    //   return resData
+    // }   
+    // xhr.send();
+
+
+    const url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
+    fetch(url)
+        .then(
+            response => response.text() // .json(), etc.
+            // same as function(response) {return response.text();}
+        ).then(
+            html => console.log(html,'/////')
+        );
 
 }
 
 
-const notification = getNotification(data=>console.log('data',data));
+const notification = getNotification(data => console.log('data', data));
+
+"https://stackoverflow.com"
 // https://8096-103-163-58-238.ngrok.io/notifications?shop=${shop}
 
 // `SERVER/notifications?shop=${shop}`
