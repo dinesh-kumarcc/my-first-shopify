@@ -62,7 +62,8 @@ app.prepare().then(async () => {
       }
       console.log(shopId,'shopid----')
     })
-    console.log(shopData,'>>>>>>',shopId)
+    const getId = Object.assign({}, ...shopId);
+    console.log(shopData,'>>>>>>',shopId,'??',getId)
     // const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
 
 
