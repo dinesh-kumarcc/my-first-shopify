@@ -53,19 +53,19 @@ app.prepare().then(async () => {
     const shopsRef = collection(db, "shop");  
     const q = query(shopsRef, where("shop", "==", shop), limit(1));
     const querySnapshot = await getDocs(q);
-    console.log(querySnapshot,'quersnap')
+    // console.log(querySnapshot,'quersnap')
     querySnapshot.forEach(async(d)=>{
       const data = d.data();
       if(shop === data.shop){
         shopData.push({...data, id: d.id});
         shopId.push({id:d.id})
       }
-      console.log(shopId,'shopid----')
+      // console.log(shopId,'shopid----')
     })
     const getId = Object.assign({}, ...shopId);
-    console.log(shopData,'>>>>>>',shopId,'??',getId.id)
+    // console.log(shopData,'>>>>>>',shopId,'??',getId.id)
     const subcollectionSnapshot = await getDocs(collection(db, "shop", getId.id, "notifications")); // create if no record added 
-    console.log(subcollectionSnapshot,'subcollectionSnapshot')
+    // console.log(subcollectionSnapshot,'subcollectionSnapshot')
     if(subcollectionSnapshot.docs.length > 0){
       subcollectionSnapshot.forEach((doc1)=>{
         notificationsData.push({...doc1.data(),id:doc1.id})
@@ -157,11 +157,11 @@ app.prepare().then(async () => {
         //     type: DataType.JSON,
         //   });
         // }
-        const filteredScripts = dataScriptTags.body.script_tags.filter((script) => script.src === `${process.env.HOST}/script.js`);
+        const filteredScripts = dataScriptTags.body.script_tags.filter((script) => script.src === `${process.env.HOST}script.js`);
         if (filteredScripts.length == 0) {
           const createScript = await client.post({
             path: 'script_tags',
-            data: { "script_tag": { "event": "onload", "src": `${process.env.HOST}/script.js` } },
+            data: { "script_tag": { "event": "onload", "src": `${process.env.HOST}script.js` } },
             type: DataType.JSON,
           });
         }
