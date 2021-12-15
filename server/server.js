@@ -64,7 +64,14 @@ app.prepare().then(async () => {
     })
     const getId = Object.assign({}, ...shopId);
     console.log(shopData,'>>>>>>',shopId,'??',getId.id)
-    // const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
+    const subcollectionSnapshot = await getDocs(collection(db, "shop", getId.id, "notifications")); // create if no record added 
+    console.log(subcollectionSnapshot,'subcollectionSnapshot')
+    if(subcollectionSnapshot.docs.length > 0){
+      subcollectionSnapshot.forEach((doc1)=>{
+        notificationsData.push({...doc1.data(),id:doc1.id})
+      })
+    }
+    console.log(notificationsData,'notificationsData')
 
 
 
