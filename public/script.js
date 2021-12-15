@@ -22,20 +22,20 @@ function getNotification() {
     // }   
     // xhr.send();
 
-
+var data = [];
     const url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
     fetch(url)
         .then(
             response => response.text() // .json(), etc.
             // same as function(response) {return response.text();}
         ).then(
-            html => console.log(html,'/////')
+            html => data.push(...html)
         );
-
+console.log(data,'data ;;;;;;')
 }
 
 
-const notification = getNotification(data => console.log('data', data));
+const notification = getNotification();
 
 "https://stackoverflow.com"
 // https://8096-103-163-58-238.ngrok.io/notifications?shop=${shop}
