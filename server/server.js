@@ -54,8 +54,12 @@ app.prepare().then(async () => {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach(async(d)=>{
       const data = d.data();
-      console.log(data,'>>>>>>')
+      if(shop === data.shop){
+        shopData.push({...data, id: d.id});
+      }
     })
+    console.log(shopData,'>>>>>>')
+    // const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
 
 
 
