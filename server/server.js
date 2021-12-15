@@ -58,7 +58,7 @@ app.prepare().then(async () => {
         shopData.push({...data, id: d.id});
       }
     })
-    console.log(shopData,'>>>>>>')
+    console.log(shopData,'>>>>>>',shopData.id)
     // const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
 
 
