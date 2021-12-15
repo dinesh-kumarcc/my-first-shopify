@@ -10,6 +10,7 @@ import { createLexer } from "graphql";
 import { db } from '../firebase'
 import cors from "@koa/cors";
 import { query, getDocs, collection, where, updateDoc, limit, addDoc, deleteDoc, doc, Timestamp } from "firebase/firestore";
+import { async } from "@firebase/util";
 
 
 dotenv.config();
@@ -48,46 +49,44 @@ app.prepare().then(async () => {
 
     const shopData = [];
     const notificationsData = [];
-    const customData = [];
-    const shopsRef = collection(db, "shop");
-    // Create a query against the collection.   
+    const shopsRef = collection(db, "shop");  
     const q = query(shopsRef, where("shop", "==", shop), limit(1));
     const querySnapshot = await getDocs(q);
-    querySnapshot.forEach(async (d) => {
+    querySnapshot.forEach(async(d)=>{
       const data = d.data();
-      if (shop === data.shop) {
-        shopData.push({ ...data, id: d.id });
-        // customData.push({id:'test'});
-        const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
-        if (subcollectionSnapshot.docs.length > 0) {
-          //console.log('ssssssssssssssss', subcollectionSnapshot.docs.map(d => ({ id: d.id, ...d.data() })))
-          subcollectionSnapshot.forEach((doc1) => {
-            // customData.push({newKey:'test'});
-            // console.log(doc1.id, " =>>>>>> ]]]]]]]]]", doc1.data());
-            notificationsData.push({ ...doc1.data(), id: doc1.id })
-            console.log(notificationsData.flat(2),'?????')
-            // var merged = [].concat.apply([], notificationsData);
-            // console.log(merged,'merged+++++')
-          });
-        }
-      }
-      shopData.push(...shopData,...notificationsData)
-      console.log(customData,'//++//notification data//++//')
+      console.log(data,'>>>>>>')
     })
 
-    console.log(shopData,'staticShop')
-    
+
+
+
+    // querySnapshot.forEach(async (d) => {
+    //   const data = d.data();
+    //   if (shop === data.shop) {
+    //     shopData.push({ ...data, id: d.id });
+    //     // customData.push({id:'test'});
+    //     const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
+    //     if (subcollectionSnapshot.docs.length > 0) {
+    //       //console.log('ssssssssssssssss', subcollectionSnapshot.docs.map(d => ({ id: d.id, ...d.data() })))
+    //       subcollectionSnapshot.forEach((doc1) => {
+    //         // customData.push({newKey:'test'});
+    //         // console.log(doc1.id, " =>>>>>> ]]]]]]]]]", doc1.data());
+    //         notificationsData.push({ ...doc1.data(), id: doc1.id })
+    //         console.log(notificationsData.flat(2),'?????')
+    //         // var merged = [].concat.apply([], notificationsData);
+    //         // console.log(merged,'merged+++++')
+    //       });
+    //     }
+    //   }
+    //   shopData.push(...shopData,...notificationsData)
+    //   console.log(customData,'//++//notification data//++//')
+    // })
 
     // ctx.body = {
     //   text: allNotification.text,
     //   color: allNotification.color,
     //   bgcolor: allNotification.bgcolor
     // };
-
-
-
-    // console.log(shop,'======'=====================================================================)
-
 
     // get shop data from firebase
 
