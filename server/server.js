@@ -71,8 +71,12 @@ app.prepare().then(async () => {
         notificationsData.push({...doc1.data(),id:doc1.id})
       })
     }
-    const getNotifications = Object.assign({},notificationsData)
+    const getNotifications = Object.assign({},...notificationsData)
     console.log(notificationsData,'notificationsData',getNotifications)
+
+    ctx.body = {
+      text:getNotifications.text
+    }
 
 
 
