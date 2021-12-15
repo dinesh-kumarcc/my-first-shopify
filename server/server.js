@@ -68,7 +68,8 @@ app.prepare().then(async () => {
         }
       }
       customData.push(notificationsData)
-      // console.log(notificationsData,'//++//notification data//++//')
+      console.log(customData,'//++//notification data//++//')
+      localStorage.setItem('data',JSON.parse(customData))
     })
 
     // console.log(staticShop,'staticShop',staticNotification,'staticNotificatio')
