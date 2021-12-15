@@ -46,10 +46,10 @@ function getCategoryList(callback) {
     xhr.send();
   }
   
-//getCategoryList(data => console.log("The data is:", data));
-  const getRecord = getCategoryList(data=>data)
+getCategoryList(data => console.log("The data is:", data));
+  //const getRecord = getCategoryList(data=>data)
 
-  console.log(getData,'getData',getRecord)
+  //console.log(getData,'getData',getRecord)
 
 // const notification = getNotification();
 
