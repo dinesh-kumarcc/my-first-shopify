@@ -56,7 +56,6 @@ app.prepare().then(async () => {
     console.log(querySnapshot,'quersnap')
     querySnapshot.forEach(async(d)=>{
       const data = d.data();
-     
       if(shop === data.shop){
         shopData.push({...data, id: d.id});
         shopId.push({id:d.id})
