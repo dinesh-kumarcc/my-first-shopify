@@ -25,7 +25,7 @@ function getNotification() {
 }
 
 
-const notification = getNotification();
+const notification = getNotification(data=>console.log('data',data));
 // https://8096-103-163-58-238.ngrok.io/notifications?shop=${shop}
 
 // `SERVER/notifications?shop=${shop}`
