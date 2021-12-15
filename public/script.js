@@ -1,66 +1,48 @@
 
 const shop = Shopify.shop;
-//console.log('shop ----', shop);
-
 
 // var newL="/notification?shop=savreen-tiwana.myshopify.com&nm=ss";
 // console.log(getParameterByName('nm', newL));
 
 
-// function getNotification() {
-//     //ajax request to server to get notification
-//     var xhr = new XMLHttpRequest();
-//     var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
-//     xhr.open("GET", url);
-//     xhr.onload = function() {
-//       alert(xhr.response,';;;;;;');
-//       console.log(xhr.response,'ppl')
-//       const resData = xhr.response;
-//       console.log(resData,'resData')
-//       return resData
-//     }   
-//     xhr.send();
 
+// var theContacts=[];
+// function loadDoc() {
+//     var xhttp = new XMLHttpRequest();
+//     xhttp.onreadystatechange = function() {
+//         if (this.readyState == 4 && this.status == 200) {
+//             theContacts.push(this.responseText);
+//         }
+//         xhttp.open("GET", `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`, true);
+//         xhttp.send();
+//     }
 // }
 
-var theContacts=[];
-function loadDoc() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            theContacts.push(this.responseText);
+// loadDoc();
+// console.log(theContacts,'theContacts')
+
+
+function getCategoryList(callback) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = (e) => {
+        if (xhr.readyState !== 4) {
+            return;
         }
-        xhttp.open("GET", `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`, true);
-        xhttp.send();
-    }
+
+        if (xhr.status === 200) {
+            console.log('SUCCESS', xhr.responseText);
+            callback(JSON.parse(xhr.responseText));
+        } else {
+            console.warn('request_error');
+        }
+    };
+
+    xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
+    xhr.send();
 }
 
-loadDoc();
-
-console.log(theContacts,'theContacts')
-
-
-// function getCategoryList(callback) {
-//     var xhr = new XMLHttpRequest();
-
-//     xhr.onreadystatechange = (e) => {
-//         if (xhr.readyState !== 4) {
-//             return;
-//         }
-
-//         if (xhr.status === 200) {
-//             console.log('SUCCESS', xhr.responseText);
-//             callback(JSON.parse(xhr.responseText));
-//         } else {
-//             console.warn('request_error');
-//         }
-//     };
-
-//     xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
-//     xhr.send();
-// }
-
-// getCategoryList(data => console.log("The data is:", data));
+getCategoryList(data => console.log("The data is:", data));
 
 // console.log(myResponse,'myResponse')
 
@@ -101,3 +83,37 @@ notificationCard.classList.add('cc-notification-card');
 // notificationCard.innerHTML = `<p style="margin:0">${notification.text}</p>`;
 mainwrapper.appendChild(notificationCard);
 document.querySelector('body').prepend(mainwrapper);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function getNotification() {
+//     //ajax request to server to get notification
+//     var xhr = new XMLHttpRequest();
+//     var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
+//     xhr.open("GET", url);
+//     xhr.onload = function() {
+//       alert(xhr.response,';;;;;;');
+//       console.log(xhr.response,'ppl')
+//       const resData = xhr.response;
+//       console.log(resData,'resData')
+//       return resData
+//     }   
+//     xhr.send();
+
+// }
