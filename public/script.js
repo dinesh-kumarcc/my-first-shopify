@@ -49,6 +49,10 @@ function getCategoryList(callback) {
   getCategoryList(data => console.log("The data is:", data));
 
 
+  const getCategoryList = getCategoryList(data=>data);
+  console.log(getCategoryList,'getCategoryList')
+
+
 const notification = getNotification();
 
 "https://stackoverflow.com"
