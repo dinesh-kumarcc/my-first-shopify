@@ -20,7 +20,7 @@ console.log(shop,)
 // loadDoc();
 // console.log(theContacts,'theContacts')
 
-var record =[];
+var showData =[];
 function getCategoryList(callback) {
     var testVar = [];
     var xhr = new XMLHttpRequest();
@@ -42,7 +42,8 @@ function getCategoryList(callback) {
     xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
     xhr.send();
 }
-getCategoryList(data =>console.log('record',record.push(data)));
+getCategoryList(data => showData.push(data));
+console.log(showData,'showData')
 
 
 
