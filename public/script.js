@@ -23,7 +23,7 @@ var testVar = [];
 // console.log(theContacts,'theContacts')
 
 
-function getCategoryList(callback) {
+function getCategoryList() {
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = (e) => {
@@ -33,7 +33,7 @@ function getCategoryList(callback) {
 
         if (this.status === 200) {
             //console.log('SUCCESS', this.responseText);
-            callback(JSON.parse(this.responseText));
+            //callback(JSON.parse(this.responseText));
             testVar.push(this.responseText);
         } else {
             console.warn('request_error');
@@ -44,7 +44,7 @@ function getCategoryList(callback) {
     xhr.send();
 }
 
-getCategoryList(data);
+getCategoryList();
 
 console.log(testVar,'myResponse')
 
