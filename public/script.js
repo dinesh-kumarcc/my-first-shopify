@@ -29,7 +29,7 @@ function getNotification() {
     var url = `https://1187-103-163-58-238.ngrok.io/notification?shop=${shop}`;
     xhr.open("GET", url);
     xhr.onload = function() {
-    //   alert(xhr.response);
+      alert(xhr.response);
     }
     xhr.send();
 
