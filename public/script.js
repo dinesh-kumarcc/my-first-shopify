@@ -26,7 +26,7 @@ function getNotification() {
 }
 
 
-function getCategoryList(callback) {
+function getCategorygetCategoryList(callback) {
     var xhr = new XMLHttpRequest();
   
     xhr.onreadystatechange = (e) => {
@@ -46,11 +46,11 @@ function getCategoryList(callback) {
     xhr.send();
   }
   
-  getCategoryList(data => console.log("The data is:", data));
+//   getCategoryList(data => console.log("The data is:", data));
 
 
-  const getCategoryList = getCategoryList(data=>data);
-  console.log(getCategoryList,'getCategoryList')
+  const getCategory = getCategoryList(data=>data);
+  console.log(getCategory,'getCategoryList')
 
 
 const notification = getNotification();
