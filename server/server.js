@@ -41,7 +41,6 @@ app.prepare().then(async () => {
   // server.use(cors());
   const router = new Router();
 
-  const data =[];
 
   router.get("/notification", async (ctx) => {
 
@@ -66,10 +65,9 @@ app.prepare().then(async () => {
             // customData.push({newKey:'test'});
             // console.log(doc1.id, " =>>>>>> ]]]]]]]]]", doc1.data());
             notificationsData.push({ ...doc1.data(), id: doc1.id })
-            data.push({ ...doc1.data(), id: doc1.id })
             console.log(notificationsData.flat(2),'?????')
-            var merged = [].concat.apply([], notificationsData);
-            console.log(merged,'merged+++++')
+            // var merged = [].concat.apply([], notificationsData);
+            // console.log(merged,'merged+++++')
           });
         }
       }
