@@ -1,7 +1,6 @@
 
 const shop = Shopify.shop;
-
-var testVar = [];
+console.log(shop,'--shop')
 
 // var newL="/notification?shop=savreen-tiwana.myshopify.com&nm=ss";
 // console.log(getParameterByName('nm', newL));
@@ -23,7 +22,8 @@ var testVar = [];
 // console.log(theContacts,'theContacts')
 
 
-function getCategoryList() {
+function getCategoryList(callback) {
+    var testVar = [];
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = (e) => {
@@ -44,9 +44,8 @@ function getCategoryList() {
     xhr.send();
 }
 
-getCategoryList();
+getCategoryList('temp');
 
-console.log(testVar,'myResponse')
 
 //const getRecord = getCategoryList(data=>data)
 
