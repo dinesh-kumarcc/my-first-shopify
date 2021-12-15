@@ -77,7 +77,7 @@ app.prepare().then(async () => {
     ctx.body = {
       text:getNotifications.text,
       color:getNotifications.color,
-      bgcolor:getNotifications.bgcolor
+      // bgcolor:getNotifications.bgcolor
     }
 
 
