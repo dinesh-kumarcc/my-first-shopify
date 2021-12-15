@@ -35,8 +35,8 @@ function getCategoryList(callback) {
 
         if (xhr.status === 200) {
             console.log('SUCCESS', xhr.responseText);
-            myResponse = xhr.responseText;
-            callback(JSON.parse(xhr.responseText));
+            // myResponse = xhr.responseText;
+            myResponse =  callback(JSON.parse(xhr.responseText));
         } else {
             console.warn('request_error');
         }
