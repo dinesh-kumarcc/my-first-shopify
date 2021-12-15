@@ -23,23 +23,19 @@ const shop = Shopify.shop;
 
 // }
 
-var json="";
-function getRecord(){
-var xrequest = new XMLHttpRequest();
-xrequest.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`, true);
-xrequest.onload = function(){
-	if(this.status == 200) {
-		var json = JSON.parse(this.responseText);
-		for(var i=0; i<json.length; i++) {
-			console.log(json[i].url);
-		}
-		console.log(json + ' 1');
-	}
+var theContacts=[];
+function loadDoc() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            theContacts.push(this.responseText);
+        }
+        xhttp.open("GET", `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`, true);
+        xhttp.send();
+    }
 }
-xrequest.send(null);
 
-console.log(json);
-}
+loadDoc();
 
 
 // function getCategoryList(callback) {
@@ -63,6 +59,8 @@ console.log(json);
 // }
 
 // getCategoryList(data => console.log("The data is:", data));
+
+// console.log(myResponse,'myResponse')
 
 //const getRecord = getCategoryList(data=>data)
 
