@@ -45,11 +45,12 @@ function getCategoryList(callback) {
     xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
     xhr.send();
   }
+
+  const listData = [];
   
-  const getData = getCategoryList(data => console.log("The data is:", data));
-
-  console.log(getData.text,'///data///')
-
+  const getData = getCategoryList(data =>console.log( 'console for data',listData.push(...data,data)));
+//   const getData = getCategoryList(data => console.log("The data is:", data));
+console.log(listData,'listData')
 
 // const notification = getNotification();
 
