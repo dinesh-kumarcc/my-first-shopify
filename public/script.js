@@ -29,7 +29,7 @@ var data = [];
             response => response.text() // .json(), etc.
             // same as function(response) {return response.text();}
         ).then(
-            html => data.push(...html)
+            html => data.push(html)
         );
 console.log(data,'data ;;;;;;')
 }
