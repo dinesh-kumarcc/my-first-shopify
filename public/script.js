@@ -23,32 +23,46 @@ const shop = Shopify.shop;
 
 // }
 
-var myResponse;
+var json="";
+function getRecord(){
+var xrequest = new XMLHttpRequest();
+xrequest.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`, true);
+xrequest.onload = function(){
+	if(this.status == 200) {
+		var json = JSON.parse(this.responseText);
+		for(var i=0; i<json.length; i++) {
+			console.log(json[i].url);
+		}
+		console.log(json + ' 1');
+	}
+}
+xrequest.send(null);
 
-function getCategoryList(callback) {
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = (e) => {
-        if (xhr.readyState !== 4) {
-            return;
-        }
-
-        if (xhr.status === 200) {
-            console.log('SUCCESS', xhr.responseText);
-            // myResponse = xhr.responseText;
-            myResponse =  callback(JSON.parse(xhr.responseText));
-        } else {
-            console.warn('request_error');
-        }
-    };
-
-    xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
-    xhr.send();
+console.log(json);
 }
 
-getCategoryList(data => console.log("The data is:", data));
 
-console.log(myResponse,'myResponse')
+// function getCategoryList(callback) {
+//     var xhr = new XMLHttpRequest();
+
+//     xhr.onreadystatechange = (e) => {
+//         if (xhr.readyState !== 4) {
+//             return;
+//         }
+
+//         if (xhr.status === 200) {
+//             console.log('SUCCESS', xhr.responseText);
+//             callback(JSON.parse(xhr.responseText));
+//         } else {
+//             console.warn('request_error');
+//         }
+//     };
+
+//     xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
+//     xhr.send();
+// }
+
+// getCategoryList(data => console.log("The data is:", data));
 
 //const getRecord = getCategoryList(data=>data)
 
