@@ -67,12 +67,13 @@ app.prepare().then(async () => {
           });
         }
       }
+      customData.push(notificationsData)
       // console.log(notificationsData,'//++//notification data//++//')
     })
 
     // console.log(staticShop,'staticShop',staticNotification,'staticNotificatio')
     console.log(notificationsData, ';;;;;;;arrNotifi;;>>>>>;;;')
-    console.log(customData);
+    console.log(customData,'-------');
 
     // ctx.body = notificationsData;
 
