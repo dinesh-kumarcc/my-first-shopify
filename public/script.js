@@ -42,8 +42,7 @@ function getCategoryList(callback) {
     xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
     xhr.send();
 }
-getCategoryList(data => showData.push(data));
-console.log(showData,'showData')
+getCategoryList(data => console.log("The data is:", data));
 
 
 
