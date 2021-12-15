@@ -20,7 +20,7 @@ console.log(shop,)
 // loadDoc();
 // console.log(theContacts,'theContacts')
 
-
+var record =[];
 function getCategoryList(callback) {
     var testVar = [];
     var xhr = new XMLHttpRequest();
@@ -31,10 +31,8 @@ function getCategoryList(callback) {
         }
         if (this.status === 200) {
             //console.log('SUCCESS', this.responseText);
-          var getData =   callback(JSON.parse(this.responseText));
-          return{
-              text:getData.text
-          }
+          callback(JSON.parse(this.responseText));
+         
             // testVar.push(this.responseText);
         } else {
             console.warn('request_error');
@@ -44,9 +42,7 @@ function getCategoryList(callback) {
     xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
     xhr.send();
 }
-
-var data = getCategoryList();
-console.log(data,'return data')
+getCategoryList(data =>console.log('record',record.push(data)));
 
 
 
