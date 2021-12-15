@@ -7,23 +7,23 @@ const shop = Shopify.shop;
 // console.log(getParameterByName('nm', newL));
 
 
-function getNotification() {
-    //ajax request to server to get notification
-    var xhr = new XMLHttpRequest();
+// function getNotification() {
+//     //ajax request to server to get notification
+//     var xhr = new XMLHttpRequest();
 
-    var xhr = new XMLHttpRequest();
-    var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
-    xhr.open("GET", url);
-    xhr.onload = function() {
-      alert(xhr.response,';;;;;;');
-      console.log(xhr.response,'ppl')
-      const resData = xhr.response;
-      console.log(resData,'resData')
-      return resData
-    }   
-    xhr.send();
+//     var xhr = new XMLHttpRequest();
+//     var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
+//     xhr.open("GET", url);
+//     xhr.onload = function() {
+//       alert(xhr.response,';;;;;;');
+//       console.log(xhr.response,'ppl')
+//       const resData = xhr.response;
+//       console.log(resData,'resData')
+//       return resData
+//     }   
+//     xhr.send();
 
-}
+// }
 
 
 function getCategoryList(callback) {
@@ -46,7 +46,7 @@ function getCategoryList(callback) {
     xhr.send();
   }
   
-  const getData = getCategoryList(data => console.log("The data is:", data));
+//getCategoryList(data => console.log("The data is:", data));
   const getRecord = getCategoryList(data=>data)
 
   console.log(getData,'getData',getRecord)
