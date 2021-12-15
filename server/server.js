@@ -48,17 +48,20 @@ app.prepare().then(async () => {
     const shop = ctx.request.query.shop
 
     const shopData = [];
+    const shopId='';
     const notificationsData = [];
     const shopsRef = collection(db, "shop");  
     const q = query(shopsRef, where("shop", "==", shop), limit(1));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach(async(d)=>{
       const data = d.data();
+      shopId(data.id)
+      console.log(shop,'shopid----')
       if(shop === data.shop){
         shopData.push({...data, id: d.id});
       }
     })
-    console.log(shopData,'>>>>>>',shopData.id)
+    console.log(shopData,'>>>>>>',shopData)
     // const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
 
 
