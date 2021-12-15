@@ -32,6 +32,28 @@ This respository is available as open source under the terms of the [MIT License
 
 <!-- 
 
+function getCategoryList(callback) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = (e) => {
+        if (xhr.readyState !== 4) {
+            return;
+        }
+
+        if (xhr.status === 200) {
+            console.log('SUCCESS', xhr.responseText);
+            callback(JSON.parse(xhr.responseText));
+        } else {
+            console.warn('request_error');
+        }
+    };
+
+    xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
+    xhr.send();
+}
+getCategoryList(data => console.log("The data is:", data));
+
+
 
 ajax -- 
     // Url for the request    cors-anywhere.herokuapp.com/    ,{ mode: 'no-cors'}
