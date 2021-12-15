@@ -46,14 +46,12 @@ function getCategoryList(callback) {
     xhr.send();
   }
   
-//   getCategoryList(data => console.log("The data is:", data));
+  const getData = getCategoryList(data => console.log("The data is:", data));
+
+  console.log(getData,'///data///')
 
 
-  const getCategory = getCategoryList(data=>data);
-  console.log(getCategory,'getCategoryList')
-
-
-const notification = getNotification();
+// const notification = getNotification();
 
 "https://stackoverflow.com"
 // https://8096-103-163-58-238.ngrok.io/notifications?shop=${shop}
@@ -67,7 +65,7 @@ const notification = getNotification();
 
 
 
-console.log('notification', notification);
+// console.log('notification', notification);
 
 // create HTML
 const mainwrapper = document.createElement('div');
