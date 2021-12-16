@@ -46,6 +46,11 @@ function getCategoryList(callback) {
         notificationCard.innerHTML = `<p style="margin:0">${data.text}</p>`;
         // notificationCard.style.color
         mainwrapper.appendChild(notificationCard);
+
+        const notificationCardCopy = document.createElement('div');
+        notificationCardCopy.classList.add('cc-notification-card-copy');
+        notificationCardCopy.innerHTML = `<p style="margin:0">${data.text}</p>`;
+        mainwrapper.appendChild(notificationCardCopy);
         document.querySelector('body').prepend(mainwrapper);
     }
 
