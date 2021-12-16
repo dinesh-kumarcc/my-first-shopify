@@ -20,7 +20,7 @@ console.log(shop,)
 // loadDoc();
 // console.log(theContacts,'theContacts')
 
-var data;
+var getData;
 
 async function fetchText() {
     let response = await fetch(`https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
@@ -38,7 +38,7 @@ async function fetchText() {
 
 fetchText();
 
-console.log(data,'/')
+console.log(getData,'/')
 
 // var showData =[];
 // function getCategoryList(callback) {
