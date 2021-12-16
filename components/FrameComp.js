@@ -9,12 +9,12 @@ import {
   Stack
 } from "@shopify/polaris";
 import { query, getDocs, collection, updateDoc, limit, doc, Timestamp, where, setDoc } from "firebase/firestore";
-import { auth, db } from '../firebase'
+import { db } from '../firebase'
 
 
 export default function FrameComp({ shop }) {
 
-  console.log(shop, 'shop.................')
+  // console.log(shop, 'shop.................')
 
   const [shopData, setShopData] = useState({});
   const [notificationData, setNotificationData] = useState({});
@@ -25,13 +25,7 @@ export default function FrameComp({ shop }) {
   });
 
   useEffect(() => {
-
-    localStorage.setItem('shop', shop)
-
-
     subColl();
-    // console.log(color, bgcolor, nameFieldValue, 'ppppppppppppppppppppppppppp')
-
   }, [])
 
 
@@ -62,11 +56,10 @@ export default function FrameComp({ shop }) {
         setShopData({ ...data, id: d.id });
         // console.log(shopData, 'shopdata ====')
         const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
-        console.log(subcollectionSnapshot.docs, 'subcollectionSnapshot')
         setUpdateSubCollection(subcollectionSnapshot)
         if (subcollectionSnapshot.docs.length > 0) {
           subcollectionSnapshot.forEach((doc1) => {
-            console.log('subcollection', doc1.data());
+            // console.log('subcollection', doc1.data());
             console.log(doc1.id, " =>>>>>> ", doc1.data());
             setNotificationData({ ...doc1.data(), id: doc1.id });
             // console.log(notificationData,'frame notification compo')
@@ -77,11 +70,9 @@ export default function FrameComp({ shop }) {
             bgcolor: bgcolor,
             text: nameFieldValue
           }, { merge: true });
-
         }
       }
     });
-    console.log(notificationData, ';;notificationData')
     return true
   }
 

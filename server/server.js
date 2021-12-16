@@ -80,18 +80,7 @@ app.prepare().then(async () => {
       bgcolor:getNotifications.bgcolor
     }
 
-
-
-
-
-    // ctx.body = {
-    //   text: allNotification.text,
-    //   color: allNotification.color,
-    //   bgcolor: allNotification.bgcolor
-    // };
-
     // get shop data from firebase
-
   })
 
 
@@ -243,13 +232,3 @@ app.prepare().then(async () => {
 
 
 
-
-    // console.log('~~~~~+++~~~~~~',ctx,'~~~~~~~~+++~~~~~~~')
-    // console.log('<<<<<<<<<<<',ctx.request.query.shop,'>>>>>>>>>>>>>>')
-    // console.log('+++++++++',ctx.request,'++++++++++++')
-            // allNotification = Object.assign({}, ...notificationsData);
- // const notification = {
-    //   text:'text',
-    //   color:'color'
-    // }
-    // ctx.body = notification

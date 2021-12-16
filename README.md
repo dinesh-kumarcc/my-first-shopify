@@ -33,7 +33,9 @@ This respository is available as open source under the terms of the [MIT License
 <!-- 
 
 
-
+console.log(shop,)
+// var newL="/notification?shop=savreen-tiwana.myshopify.com&nm=ss";
+// console.log(getParameterByName('nm', newL));
 
 
 
@@ -183,49 +185,6 @@ This respository is available as open source under the terms of the [MIT License
 
 
 
-
-// let test2 = ""
-// function process(){
-//     url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`
-//     var xhr = new XMLHttpRequest();
-//     xhr.open("GET", url, true);
-//     xhr.onreadystatechange = function() {
-//     if (xhr.readyState == 4){
-//         test2 = xhr.responseText
-//         console.log(test2,'test2')
-//         }
-//     }
-//     xhr.send();
-// }
-// process();
-// alert(test2);
-// console.log(test2,'....')
-
-
-
-function getCategoryList(callback) {
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = (e) => {
-        if (xhr.readyState !== 4) {
-            return;
-        }
-
-        if (xhr.status === 200) {
-            console.log('SUCCESS', xhr.responseText);
-            callback(JSON.parse(xhr.responseText));
-        } else {
-            console.warn('request_error');
-        }
-    };
-
-    xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
-    xhr.send();
-}
-getCategoryList(data => console.log("The data is:", data));
-
-
-
 ajax -- 
     // Url for the request    cors-anywhere.herokuapp.com/    ,{ mode: 'no-cors'}
     // var url = `https://ac2f-103-163-58-238.ngrok.io/notifications?shop=${shop}`;
@@ -267,41 +226,6 @@ function getParameterByName(queryString, url) {
 // console.log(getParameterByName('nm', newL));
 
 
-const subColl = async () => {
-
-    const shopsRef = collection(db, "shop");
-    // Create a query against the collection.
-    const q = query(shopsRef, where("shop", "==", shop), limit(1));  //limit 1
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach(async (d) => {
-      // doc.data() is never undefined for query doc snapshots
-      const data = d.data();
-      if (shop === data.shop) {
-        setShopData({ ...data, id: d.id });
-        // console.log(shopData, 'shopdata ====')
-        const subcollectionSnapshot = await getDocs(collection(db, "shop", d.id, "notifications")); // create if no record added 
-        setUpdateSubCollection(subcollectionSnapshot)
-        if (subcollectionSnapshot.docs.length > 0) {
-          subcollectionSnapshot.forEach((doc1) => {
-            // console.log('subcollection', doc1);
-            console.log(doc1.id, " =>>>>>> ", doc1.data());
-            setNotificationData({ ...doc1.data(), id: doc1.id });
-            // console.log(notificationData,'frame notification compo')
-          });
-        } else {
-          await setDoc(doc(db, "shop", d.id, 'notifications', shop), {
-            color: color,
-            bgcolor: bgcolor,
-            text: nameFieldValue
-          }, { merge: true });
-
-        }
-      }
-    });
-    console.log(notificationData,';;notificationData')
-    return true
-  }
-
 
  var newL="/notification?shop=savreen-tiwana.myshopify.com";
     console.log(newUL);
@@ -317,19 +241,12 @@ const subColl = async () => {
     const shopname = onlyShop.shift();
     console.log(shopname)
 
-
-rgbaColor
-rgbaBgColor
-
     await addDoc(collection(db, 'shop', id , 'notifications'), {
       color: color,
       bgcolor:bgcolor,
       text:nameFieldValue,
       dateExample: Timestamp.fromDate(new Date())
     });
-
- const subColRef = collection(db, "shop",id,"notifications");
-    console.log(subColRef, '///////////////////')
 
 
 
@@ -402,18 +319,6 @@ rgbaBgColor
   }
 
 
-    // if (notification) {
-    //   const subCollection = doc(db, "shop", id, "notifications", notificationId);
-    //   console.log('kkkkkkkkk', subCollection, 'kkkkkkkkk', notificationId, 'kkkkkkk', storeName)
-    //   updateDoc(subCollection, {
-    //     color: rgbaColor,
-    //     bgcolor: rgbaBgColor,
-    //     text: nameFieldValue,
-    //     dateExample: Timestamp.fromDate(new Date())
-    //   });
-    // }
-
-
 
     // const shopCol = query(collection(db, "shop"));
     // const shopSnapshot = await getDocs(shopCol);
@@ -438,8 +343,6 @@ rgbaBgColor
     //     ...doc.data(),
     //     id: doc.id
     //   })
-
-    //   console.log(notificationId,'ooooooooooooooo',notification)
     //   setNotification(notificationData)
     // });
 
