@@ -46,7 +46,7 @@ console.log(shop,)
 // console.log(showData)
 
 
-test2 = ""
+let test2 = ""
 function process(){
     url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`
     var xhr = new XMLHttpRequest();
