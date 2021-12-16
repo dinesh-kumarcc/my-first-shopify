@@ -20,26 +20,6 @@ console.log(shop,)
 // loadDoc();
 // console.log(theContacts,'theContacts')
 
-var getData;
-
-async function fetchText() {
-    let response = await fetch(`https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
-
-    console.log(response.status); // 200
-    console.log(response.statusText); // OK
-
-    if (response.status === 200) {
-        let data = await response.text();
-        getData = data;
-        console.log(data,'fetch data')
-        // handle data
-    }
-}
-
-fetchText();
-
-console.log(getData,'/')
-
 // var showData =[];
 // function getCategoryList(callback) {
 //     var xhr = new XMLHttpRequest();
@@ -64,10 +44,28 @@ console.log(getData,'/')
 // getCategoryList(data => console.log("The data is:", data));
 
 
+var xhr = new XMLHttpRequest() // Access inbuilt props and methods on this object
+xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`, true) //last value says "run this request async"
+xhr.send()
 
-//const getRecord = getCategoryList(data=>data)
+xhr.addEventListener("readystatechange", processRequest, false) //listening for the readystatechange property to be changed
 
-//console.log(getData,'getData',getRecord)
+xhr.onreadystatechange = processRequest
+
+var globals = {
+  response: {}
+}
+
+function processRequest(responseEvent) {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    globals.response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
+
+    // var response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
+    // console.log(response[0].content + " response[0].content local scoped")
+  }
+}
+
+console.log("The data is:",globals.response)
 
 // const notification = getNotification();
 
@@ -136,3 +134,25 @@ document.querySelector('body').prepend(mainwrapper);
 //     xhr.send();
 
 // }
+
+
+
+// var getData;
+
+// async function fetchText() {
+//     let response = await fetch(`https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
+
+//     console.log(response.status); // 200
+//     console.log(response.statusText); // OK
+
+//     if (response.status === 200) {
+//         let data = await response.text();
+//         getData = data;
+//         console.log(data,'fetch data')
+//         // handle data
+//     }
+// }
+
+// fetchText();
+
+// console.log(getData,'/')
