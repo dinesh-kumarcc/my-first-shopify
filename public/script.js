@@ -20,47 +20,43 @@ console.log(shop,)
 // loadDoc();
 // console.log(theContacts,'theContacts')
 
-var showData =[];
-function getCategoryList(callback) {
-    var xhr = new XMLHttpRequest();
+async function fetchText() {
+    let response = await fetch(`https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
 
-    setTimeout(
+    console.log(response.status); // 200
+    console.log(response.statusText); // OK
 
-    xhr.onreadystatechange = (e) => {
-        if (xhr.readyState !== 4) {
-            return;
-        }
-        if (xhr.status === 200) {
-            //console.log('SUCCESS', xhr.responseText);
-          callback(JSON.parse(xhr.responseText));
-         
-            // testVar.push(this.responseText);
-        } else {
-            console.warn('request_error');
-        }
-    },1000
-    );
-
-    // xhr.onreadystatechange = (e) => {
-    //     if (xhr.readyState !== 4) {
-    //         return;
-    //     }
-    //     if (xhr.status === 200) {
-    //         //console.log('SUCCESS', xhr.responseText);
-    //       callback(JSON.parse(xhr.responseText));
-         
-    //         // testVar.push(this.responseText);
-    //     } else {
-    //         console.warn('request_error');
-    //     }
-    // };
-
-    xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
-    xhr.send();
+    if (response.status === 200) {
+        let data = await response.text();
+        console.log(data,'fetch data')
+        // handle data
+    }
 }
-var data = getCategoryList(data => console.log("The data is:", data));
 
-console.log(data,'this data is')
+fetchText();
+
+// var showData =[];
+// function getCategoryList(callback) {
+//     var xhr = new XMLHttpRequest();
+
+//     xhr.onreadystatechange = (e) => {
+//         if (xhr.readyState !== 4) {
+//             return;
+//         }
+//         if (xhr.status === 200) {
+//             //console.log('SUCCESS', xhr.responseText);
+//           callback(JSON.parse(xhr.responseText));
+         
+//             // testVar.push(this.responseText);
+//         } else {
+//             console.warn('request_error');
+//         }
+//     };
+
+//     xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
+//     xhr.send();
+// }
+// getCategoryList(data => console.log("The data is:", data));
 
 
 
