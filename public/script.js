@@ -61,6 +61,7 @@ function process(){
 }
 process();
 alert(test2);
+console.log(test2,'....')
 
 
 // const notification = getNotification();
