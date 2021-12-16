@@ -30,7 +30,7 @@ console.log(shop,)
 //         }
 //         if (xhr.status === 200) {
 //             //console.log('SUCCESS', xhr.responseText);
-//           callback(JSON.parse(xhr.responseText));
+//             showData  =  callback(JSON.parse(xhr.responseText));
          
 //             // testVar.push(this.responseText);
 //         } else {
@@ -42,6 +42,10 @@ console.log(shop,)
 //     xhr.send();
 // }
 // getCategoryList(data => console.log("The data is:", data));
+
+// console.log(showData)
+
+
 test2 = ""
 function process(){
     url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`
@@ -50,6 +54,7 @@ function process(){
     xhr.onreadystatechange = function() {
     if (xhr.readyState == 4){
         test2 = xhr.responseText
+        console.log(test2,'test2')
         }
     }
     xhr.send();
