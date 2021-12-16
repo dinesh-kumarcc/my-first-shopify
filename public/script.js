@@ -30,7 +30,7 @@ function responseData(data) {
 
     const mainwrapper = document.createElement('div');
     mainwrapper.classList.add('cc-notification-wrapper');
-    mainwrapper.style.display = 'flex';
+    // mainwrapper.style.display = 'flex';
     mainwrapper.style.justifyContent = 'END';
     mainwrapper.style.alignItems = 'end';
     mainwrapper.style.width = '100%';
