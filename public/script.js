@@ -32,7 +32,7 @@ function responseData(data) {
     mainwrapper.classList.add('cc-notification-wrapper');
     mainwrapper.style.display = 'flex';
     mainwrapper.style.justifyContent = 'center';
-    mainwrapper.style.alignItems = 'center';
+    mainwrapper.style.alignItems = 'end';
     mainwrapper.style.width = '100%';
     mainwrapper.style.padding = '5px 15px';
     mainwrapper.style.color = data.color;
