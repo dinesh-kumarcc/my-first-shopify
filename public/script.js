@@ -5,6 +5,32 @@ console.log(shop,)
 // console.log(getParameterByName('nm', newL));
 
 
+function getCategoryList(callback) {
+    var xhr = new XMLHttpRequest();
+    
+    xhr.onreadystatechange = (e) => {
+    if (xhr.readyState !== 4) {
+    return;
+    }
+    if (xhr.status === 200) {
+    //console.log('SUCCESS', xhr.responseText);
+    callback(JSON.parse(xhr.responseText));
+    
+    // testVar.push(this.responseText);
+    } else {
+    console.warn('request_error');
+    }
+    };
+    
+    xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
+    xhr.send();
+    }
+    getCategoryList(responseData);
+    
+    function responseData(data) {
+      console.log('data', data);
+    }
+
 // var theContacts=[];
 // function loadDoc() {
 //     var xhttp = new XMLHttpRequest();
@@ -19,6 +45,8 @@ console.log(shop,)
 
 // loadDoc();
 // console.log(theContacts,'theContacts')
+
+
 
 // var showData =[];
 // function getCategoryList(callback) {
@@ -46,26 +74,22 @@ console.log(shop,)
 // console.log(showData)
 
 
-let test2 = ""
-function process(){
-    url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
-    xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4){
-        test2 = xhr.responseText
-        console.log(test2,'test2')
-        }
-    }
-    xhr.send();
-}
-process();
-alert(test2);
-console.log(test2,'....')
 
+// function getNotification() {
+//     //ajax request to server to get notification
+//     var xhr = new XMLHttpRequest();
+//     var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
+//     xhr.open("GET", url);
+//     xhr.onload = function() {
+//       alert(xhr.response,';;;;;;');
+//       console.log(xhr.response,'ppl')
+//       const resData = xhr.response;
+//       console.log(resData,'resData')
+//       return resData
+//     }   
+//     xhr.send();
 
-// const notification = getNotification();
-
+// }
 
 
 "https://stackoverflow.com"
@@ -185,3 +209,23 @@ document.querySelector('body').prepend(mainwrapper);
 // processRequest()
 
 // console.log("The data is:",globals.response)
+
+
+
+
+// let test2 = ""
+// function process(){
+//     url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`
+//     var xhr = new XMLHttpRequest();
+//     xhr.open("GET", url, true);
+//     xhr.onreadystatechange = function() {
+//     if (xhr.readyState == 4){
+//         test2 = xhr.responseText
+//         console.log(test2,'test2')
+//         }
+//     }
+//     xhr.send();
+// }
+// process();
+// alert(test2);
+// console.log(test2,'....')
