@@ -46,6 +46,7 @@ function responseData(data) {
     mainwrapper.appendChild(notificationCard);
     // document.getElementsByClassName('announcement-bar__message h5').innerHTML(mainwrapper);
     document.querySelector('body').prepend(mainwrapper);
+    document.getElementsByClassName('announcement-bar__message h5').style.visibility='hidden';
 }
 
 
