@@ -43,7 +43,7 @@ function getCategoryList(callback) {
         mainwrapper.style.borderBottom = '1px solid #ccc';
         mainwrapper.style.fontSize = '14px';
         const notificationCard = document.createElement('div');
-        notificationCard.classList.add('cc-notification-card');
+        notificationCard.classList.add('announcement-bar color-background-1 gradient');
         notificationCard.innerHTML = `<p style="margin:0">${data.text}</p>`;
         notificationCard.style.color = data.color;
         mainwrapper.appendChild(notificationCard);
