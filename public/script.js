@@ -32,7 +32,7 @@ function getCategoryList(callback) {
         console.log('data', data);
 
         const mainwrapper = document.createElement('div');
-        mainwrapper.classList.add('cc-notification-wrapper');
+        mainwrapper.classList.add('announcement-bar color-background-1 gradient');
         mainwrapper.style.display = 'flex';
         mainwrapper.style.justifyContent = 'center';
         mainwrapper.style.alignItems = 'center';
@@ -43,7 +43,7 @@ function getCategoryList(callback) {
         mainwrapper.style.borderBottom = '1px solid #ccc';
         mainwrapper.style.fontSize = '14px';
         const notificationCard = document.createElement('div');
-        notificationCard.classList.add('announcement-bar color-background-1 gradient');
+        notificationCard.classList.add('cc-notification-card');
         notificationCard.innerHTML = `<p style="margin:0">${data.text}</p>`;
         notificationCard.style.color = data.color;
         mainwrapper.appendChild(notificationCard);
