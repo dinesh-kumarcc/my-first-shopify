@@ -30,7 +30,7 @@ async function fetchText() {
 
     if (response.status === 200) {
         let data = await response.text();
-        const data = data;
+        getData = data;
         console.log(data,'fetch data')
         // handle data
     }
