@@ -59,6 +59,7 @@ var globals = {
 function processRequest(responseEvent) {
   if (xhr.readyState === 4 && xhr.status === 200) {
     globals.response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
+    console.log(global.response,'...')
 
     // var response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
     // console.log(response[0].content + " response[0].content local scoped")
@@ -68,6 +69,8 @@ function processRequest(responseEvent) {
 console.log("The data is:",globals.response)
 
 // const notification = getNotification();
+
+
 
 "https://stackoverflow.com"
 // https://8096-103-163-58-238.ngrok.io/notifications?shop=${shop}
