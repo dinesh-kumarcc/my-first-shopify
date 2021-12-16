@@ -59,7 +59,7 @@ var globals = {
 function processRequest(responseEvent) {
   if (xhr.readyState === 4 && xhr.status === 200) {
     globals.response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
-    console.log(global.response,'...')
+    console.log(globals.response,'...')
 
     // var response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
     // console.log(response[0].content + " response[0].content local scoped")
