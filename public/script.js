@@ -21,7 +21,6 @@ function getCategoryList(callback) {
     console.warn('request_error');
     }
     };
-    
     xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
     xhr.send();
     }
@@ -33,15 +32,15 @@ function getCategoryList(callback) {
 
         const mainwrapper = document.createElement('div');
         mainwrapper.classList.add('cc-notification-wrapper');
-        mainwrapper.style.display = 'flex';
-        mainwrapper.style.justifyContent = 'center';
-        mainwrapper.style.alignItems = 'center';
-        mainwrapper.style.width = '100%';
-        mainwrapper.style.padding = '5px 15px';
-        mainwrapper.style.color = data.color;
-        mainwrapper.style.backgroundColor = data.bgcolor;
-        mainwrapper.style.borderBottom = '1px solid #ccc';
-        mainwrapper.style.fontSize = '14px';
+        // mainwrapper.style.display = 'flex';
+        // mainwrapper.style.justifyContent = 'center';
+        // mainwrapper.style.alignItems = 'center';
+        // mainwrapper.style.width = '100%';
+        // mainwrapper.style.padding = '5px 15px';
+        // mainwrapper.style.color = data.color;
+        // mainwrapper.style.backgroundColor = data.bgcolor;
+        // mainwrapper.style.borderBottom = '1px solid #ccc';
+        // mainwrapper.style.fontSize = '14px';
         const notificationCard = document.createElement('div');
         notificationCard.classList.add('cc-notification-card');
         notificationCard.innerHTML = `<p style="margin:0">${data.text}</p>`;
