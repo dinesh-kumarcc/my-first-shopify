@@ -40,7 +40,7 @@ function responseData(data) {
     // mainwrapper.style.fontSize = '14px';
     const notificationCard = document.createElement('div');
     notificationCard.classList.add('announcement-bar__message h5');
-    notificationCard.innerHTML = `<p style="margin:0">${data.text}</p>`;
+    notificationCard.innerHTML = `<p class="announcement-bar__message h5">${data.text}</p>`;
     notificationCard.style.color
     mainwrapper.appendChild(notificationCard);
     document.querySelector('body').prepend(mainwrapper);
