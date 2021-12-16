@@ -37,6 +37,78 @@ This respository is available as open source under the terms of the [MIT License
 
 
 
+// var theContacts=[];
+// function loadDoc() {
+//     var xhttp = new XMLHttpRequest();
+//     xhttp.onreadystatechange = function() {
+//         if (this.readyState == 4 && this.status == 200) {
+//             theContacts.push(this.responseText);
+//         }
+//         xhttp.open("GET", `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`, true);
+//         xhttp.send();
+//     }
+// }
+
+// loadDoc();
+// console.log(theContacts,'theContacts')
+
+
+
+// var showData =[];
+// function getCategoryList(callback) {
+//     var xhr = new XMLHttpRequest();
+
+//     xhr.onreadystatechange = (e) => {
+//         if (xhr.readyState !== 4) {
+//             return;
+//         }
+//         if (xhr.status === 200) {
+//             //console.log('SUCCESS', xhr.responseText);
+//             showData  =  callback(JSON.parse(xhr.responseText));
+         
+//             // testVar.push(this.responseText);
+//         } else {
+//             console.warn('request_error');
+//         }
+//     };
+
+//     xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
+//     xhr.send();
+// }
+// getCategoryList(data => console.log("The data is:", data));
+
+// console.log(showData)
+
+
+
+// function getNotification() {
+//     //ajax request to server to get notification
+//     var xhr = new XMLHttpRequest();
+//     var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
+//     xhr.open("GET", url);
+//     xhr.onload = function() {
+//       alert(xhr.response,';;;;;;');
+//       console.log(xhr.response,'ppl')
+//       const resData = xhr.response;
+//       console.log(resData,'resData')
+//       return resData
+//     }   
+//     xhr.send();
+
+// }
+
+
+"https://stackoverflow.com"
+// https://8096-103-163-58-238.ngrok.io/notifications?shop=${shop}
+
+// `SERVER/notifications?shop=${shop}`
+// return {
+//     text: 'Test Notification',
+//     color: 'rgba(163, 24, 163, 0.8)',
+//     bgcolor: 'rgba(137, 106, 137, 0.8)'
+// }
+
+
 
 
 
