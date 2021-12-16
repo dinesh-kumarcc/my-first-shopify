@@ -20,7 +20,7 @@ console.log(shop,)
 // loadDoc();
 // console.log(theContacts,'theContacts')
 
-const data;
+var data;
 
 async function fetchText() {
     let response = await fetch(`https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
