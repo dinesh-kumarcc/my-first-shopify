@@ -45,6 +45,7 @@ function getCategoryList(callback) {
         const notificationCard = document.createElement('div');
         notificationCard.classList.add('cc-notification-card');
         notificationCard.innerHTML = `<p style="margin:0">${data.text}</p>`;
+        notificationCard.style.color = data.color;
         mainwrapper.appendChild(notificationCard);
         document.querySelector('body').prepend(mainwrapper);
     }
