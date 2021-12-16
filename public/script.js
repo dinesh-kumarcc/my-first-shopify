@@ -42,33 +42,21 @@ console.log(shop,)
 //     xhr.send();
 // }
 // getCategoryList(data => console.log("The data is:", data));
-
-
-var xhr = new XMLHttpRequest() // Access inbuilt props and methods on this object
-xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`, true) //last value says "run this request async"
-xhr.send()
-
-xhr.addEventListener("readystatechange", processRequest, false) //listening for the readystatechange property to be changed
-
-xhr.onreadystatechange = processRequest
-
-var globals = {
-  response: {}
+test2 = ""
+function process(){
+    url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4){
+        test2 = xhr.responseText
+        }
+    }
+    xhr.send();
 }
+process();
+alert(test2);
 
-function processRequest(responseEvent) {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    globals.response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
-    console.log(globals.response,'...')
-
-    window.localStorage.setItem('user', globals.response);
-    // var response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
-    // console.log(response[0].content + " response[0].content local scoped")
-  }
-}
-processRequest()
-
-console.log("The data is:",globals.response)
 
 // const notification = getNotification();
 
@@ -161,3 +149,33 @@ document.querySelector('body').prepend(mainwrapper);
 // fetchText();
 
 // console.log(getData,'/')
+
+
+
+
+
+// var xhr = new XMLHttpRequest() // Access inbuilt props and methods on this object
+// xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`, true) //last value says "run this request async"
+// xhr.send()
+
+// xhr.addEventListener("readystatechange", processRequest, false) //listening for the readystatechange property to be changed
+
+// xhr.onreadystatechange = processRequest
+
+// var globals = {
+//   response: {}
+// }
+
+// function processRequest() {
+//   if (xhr.readyState === 4 && xhr.status === 200) {
+//     globals.response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
+//     console.log(globals.response,'...')
+
+//     window.localStorage.setItem('user', globals.response);
+//     // var response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
+//     // console.log(response[0].content + " response[0].content local scoped")
+//   }
+// }
+// processRequest()
+
+// console.log("The data is:",globals.response)
