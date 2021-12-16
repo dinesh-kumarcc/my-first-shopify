@@ -22,8 +22,9 @@ console.log(shop,)
 
 var showData =[];
 function getCategoryList(callback) {
-    var testVar = [];
     var xhr = new XMLHttpRequest();
+
+    setTimeout(
 
     xhr.onreadystatechange = (e) => {
         if (xhr.readyState !== 4) {
@@ -37,7 +38,22 @@ function getCategoryList(callback) {
         } else {
             console.warn('request_error');
         }
-    };
+    },1000
+    );
+
+    // xhr.onreadystatechange = (e) => {
+    //     if (xhr.readyState !== 4) {
+    //         return;
+    //     }
+    //     if (xhr.status === 200) {
+    //         //console.log('SUCCESS', xhr.responseText);
+    //       callback(JSON.parse(xhr.responseText));
+         
+    //         // testVar.push(this.responseText);
+    //     } else {
+    //         console.warn('request_error');
+    //     }
+    // };
 
     xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
     xhr.send();
