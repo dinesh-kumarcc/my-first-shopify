@@ -30,8 +30,8 @@ function getCategoryList(callback) {
         
         console.log('data', data);
 
-        const mainwrapper = document.createElement('div');
-        mainwrapper.classList.add('cc-notification-wrapper');
+        // const mainwrapper = document.createElement('div');
+        // mainwrapper.classList.add('cc-notification-wrapper');
         // mainwrapper.style.display = 'flex';
         // mainwrapper.style.justifyContent = 'center';
         // mainwrapper.style.alignItems = 'center';
@@ -41,17 +41,18 @@ function getCategoryList(callback) {
         // mainwrapper.style.backgroundColor = data.bgcolor;
         // mainwrapper.style.borderBottom = '1px solid #ccc';
         // mainwrapper.style.fontSize = '14px';
-        const notificationCard = document.createElement('div');
-        notificationCard.classList.add('cc-notification-card');
-        notificationCard.innerHTML = `<p style="margin:0">${data.text}</p>`;
-        // notificationCard.style.color
-        mainwrapper.appendChild(notificationCard);
+        // const notificationCard = document.createElement('div');
+        // notificationCard.classList.add('cc-notification-card');
+        // notificationCard.innerHTML = `<p style="margin:0">${data.text}</p>`;
+        // // notificationCard.style.color
+        // mainwrapper.appendChild(notificationCard);
 
         const notificationCardCopy = document.createElement('div');
         notificationCardCopy.classList.add('cc-notification-card-copy');
         notificationCardCopy.innerHTML = `<p style="margin:0">${data.text}</p>`;
         mainwrapper.appendChild(notificationCardCopy);
-        document.querySelector('body').prepend(mainwrapper);
+
+        // document.querySelector('body').prepend(mainwrapper);
     }
 
 
