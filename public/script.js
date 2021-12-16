@@ -61,6 +61,7 @@ function processRequest(responseEvent) {
     globals.response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
     console.log(globals.response,'...')
 
+    window.localStorage.setItem('user', globals.response);
     // var response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
     // console.log(response[0].content + " response[0].content local scoped")
   }
