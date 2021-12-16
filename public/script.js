@@ -65,6 +65,7 @@ function processRequest(responseEvent) {
     // console.log(response[0].content + " response[0].content local scoped")
   }
 }
+processRequest()
 
 console.log("The data is:",globals.response)
 
