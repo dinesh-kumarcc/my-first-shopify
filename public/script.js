@@ -27,25 +27,29 @@ getCategoryList(responseData);
 
 function responseData(data) {
 
+
     const mainwrapper = document.createElement('div');
-    mainwrapper.classList.add('announcement-bar color-background-1 gradient');
-    // mainwrapper.style.display = 'flex';
-    // mainwrapper.style.justifyContent = 'center';
-    // mainwrapper.style.alignItems = 'center';
-    // mainwrapper.style.width = '100%';
-    // mainwrapper.style.padding = '5px 15px';
-    // mainwrapper.style.color = data.color;
-    // mainwrapper.style.backgroundColor = data.bgcolor;
-    // mainwrapper.style.borderBottom = '1px solid #ccc';
-    // mainwrapper.style.fontSize = '14px';
+    mainwrapper.classList.add('cc-notification-wrapper');
+    mainwrapper.style.display = 'flex';
+    mainwrapper.style.justifyContent = 'center';
+    mainwrapper.style.alignItems = 'center';
+    mainwrapper.style.width = '100%';
+    mainwrapper.style.padding = '5px 15px';
+    mainwrapper.style.color = data.color;
+    mainwrapper.style.backgroundColor = data.bgcolor;
+    mainwrapper.style.borderBottom = '1px solid #ccc';
+    mainwrapper.style.fontSize = '14px';
     const notificationCard = document.createElement('div');
-    notificationCard.classList.add('announcement-bar__message h5');
-    notificationCard.innerHTML = `<p class="announcement-bar__message h5">${data.text}</p>`;
+    notificationCard.classList.add('cc-notification-card');
+    notificationCard.innerHTML = `<p style="margin:0">${data.text}</p>`;
     notificationCard.style.color
     mainwrapper.appendChild(notificationCard);
-    document.querySelector('body').prepend(mainwrapper);
+    document.getElementsByClassName('announcement-bar__message h5').innerHTML(mainwrapper);
+    // document.querySelector('body').prepend(mainwrapper);
 }
 
+
+// console.log('notification', notification);
 
 // create HTML
 // const mainwrapper = document.createElement('div');
