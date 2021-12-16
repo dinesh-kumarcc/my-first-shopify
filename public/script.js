@@ -28,7 +28,9 @@ function getCategoryList(callback) {
     getCategoryList(responseData);
     
     function responseData(data) {
-      console.log('data', data);
+        
+        console.log('data', data);
+        return data.text;
     }
 
 // var theContacts=[];
