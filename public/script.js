@@ -125,22 +125,22 @@ function getCategoryList(callback) {
 // console.log('notification', notification);
 
 // create HTML
-const mainwrapper = document.createElement('div');
-mainwrapper.classList.add('cc-notification-wrapper');
-mainwrapper.style.display = 'flex';
-mainwrapper.style.justifyContent = 'center';
-mainwrapper.style.alignItems = 'center';
-mainwrapper.style.width = '100%';
-mainwrapper.style.padding = '5px 15px';
+// const mainwrapper = document.createElement('div');
+// mainwrapper.classList.add('cc-notification-wrapper');
+// mainwrapper.style.display = 'flex';
+// mainwrapper.style.justifyContent = 'center';
+// mainwrapper.style.alignItems = 'center';
+// mainwrapper.style.width = '100%';
+// mainwrapper.style.padding = '5px 15px';
 // mainwrapper.style.color = notification.color;
 // mainwrapper.style.backgroundColor = notification.bgcolor;
-mainwrapper.style.borderBottom = '1px solid #ccc';
-mainwrapper.style.fontSize = '14px';
-const notificationCard = document.createElement('div');
-notificationCard.classList.add('cc-notification-card');
+// mainwrapper.style.borderBottom = '1px solid #ccc';
+// mainwrapper.style.fontSize = '14px';
+// const notificationCard = document.createElement('div');
+// notificationCard.classList.add('cc-notification-card');
 // notificationCard.innerHTML = `<p style="margin:0">${notification.text}</p>`;
-mainwrapper.appendChild(notificationCard);
-document.querySelector('body').prepend(mainwrapper);
+// mainwrapper.appendChild(notificationCard);
+// document.querySelector('body').prepend(mainwrapper);
 
 
 
@@ -152,98 +152,3 @@ document.querySelector('body').prepend(mainwrapper);
 
 
 
-
-
-
-
-
-
-
-
-// function getNotification() {
-//     //ajax request to server to get notification
-//     var xhr = new XMLHttpRequest();
-//     var url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`;
-//     xhr.open("GET", url);
-//     xhr.onload = function() {
-//       alert(xhr.response,';;;;;;');
-//       console.log(xhr.response,'ppl')
-//       const resData = xhr.response;
-//       console.log(resData,'resData')
-//       return resData
-//     }   
-//     xhr.send();
-
-// }
-
-
-
-// var getData;
-
-// async function fetchText() {
-//     let response = await fetch(`https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`);
-
-//     console.log(response.status); // 200
-//     console.log(response.statusText); // OK
-
-//     if (response.status === 200) {
-//         let data = await response.text();
-//         getData = data;
-//         console.log(data,'fetch data')
-//         // handle data
-//     }
-// }
-
-// fetchText();
-
-// console.log(getData,'/')
-
-
-
-
-
-// var xhr = new XMLHttpRequest() // Access inbuilt props and methods on this object
-// xhr.open('GET', `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`, true) //last value says "run this request async"
-// xhr.send()
-
-// xhr.addEventListener("readystatechange", processRequest, false) //listening for the readystatechange property to be changed
-
-// xhr.onreadystatechange = processRequest
-
-// var globals = {
-//   response: {}
-// }
-
-// function processRequest() {
-//   if (xhr.readyState === 4 && xhr.status === 200) {
-//     globals.response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
-//     console.log(globals.response,'...')
-
-//     window.localStorage.setItem('user', globals.response);
-//     // var response = JSON.parse(xhr.responseText) //parsing turns a long string into an object
-//     // console.log(response[0].content + " response[0].content local scoped")
-//   }
-// }
-// processRequest()
-
-// console.log("The data is:",globals.response)
-
-
-
-
-// let test2 = ""
-// function process(){
-//     url = `https://my-first-shopify-code-corner.herokuapp.com/notification?shop=${shop}`
-//     var xhr = new XMLHttpRequest();
-//     xhr.open("GET", url, true);
-//     xhr.onreadystatechange = function() {
-//     if (xhr.readyState == 4){
-//         test2 = xhr.responseText
-//         console.log(test2,'test2')
-//         }
-//     }
-//     xhr.send();
-// }
-// process();
-// alert(test2);
-// console.log(test2,'....')
