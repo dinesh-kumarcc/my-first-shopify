@@ -46,8 +46,7 @@ function getCategoryList(callback) {
         notificationCard.innerHTML = `<p style="margin:0">${data.text}</p>`;
         notificationCard.style.color
         mainwrapper.appendChild(notificationCard);
-        document.getElementsByClassName('announcement-bar__message h5').innerHTML(mainwrapper);
-        // document.querySelector('body').prepend(mainwrapper);
+        document.querySelector('body').prepend(mainwrapper);
     }
 
 
