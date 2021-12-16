@@ -30,7 +30,23 @@ function getCategoryList(callback) {
     function responseData(data) {
         
         console.log('data', data);
-        return data.text;
+
+        const mainwrapper = document.createElement('div');
+        mainwrapper.classList.add('cc-notification-wrapper');
+        mainwrapper.style.display = 'flex';
+        mainwrapper.style.justifyContent = 'center';
+        mainwrapper.style.alignItems = 'center';
+        mainwrapper.style.width = '100%';
+        mainwrapper.style.padding = '5px 15px';
+        mainwrapper.style.color = data.color;
+        // mainwrapper.style.backgroundColor = notification.bgcolor;
+        mainwrapper.style.borderBottom = '1px solid #ccc';
+        mainwrapper.style.fontSize = '14px';
+        const notificationCard = document.createElement('div');
+        notificationCard.classList.add('cc-notification-card');
+        // notificationCard.innerHTML = `<p style="margin:0">${notification.text}</p>`;
+        mainwrapper.appendChild(notificationCard);
+        document.querySelector('body').prepend(mainwrapper);
     }
 
 // var theContacts=[];
