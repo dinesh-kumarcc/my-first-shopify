@@ -32,7 +32,7 @@ function getCategoryList(callback) {
         console.log('data', data);
 
         const mainwrapper = document.createElement('div');
-        mainwrapper.classList.add('announcement-bar color-background-1 gradient');
+        mainwrapper.classList.add('cc-notification-wrapper');
         mainwrapper.style.display = 'flex';
         mainwrapper.style.justifyContent = 'center';
         mainwrapper.style.alignItems = 'center';
