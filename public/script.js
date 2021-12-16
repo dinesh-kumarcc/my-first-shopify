@@ -49,7 +49,7 @@ function getCategoryList(callback) {
 
         const notificationCardCopy = document.createElement('div');
         notificationCardCopy.classList.add('cc-notification-card-copy');
-        notificationCardCopy.innerHTML = `<p style="margin:0">${data.text}</p>`;
+        notificationCardCopy.innerHTML = `<p>${data.text}</p>`;
         // mainwrapper.appendChild(notificationCardCopy);
         document.querySelector('body').prepend(notificationCardCopy);
 
